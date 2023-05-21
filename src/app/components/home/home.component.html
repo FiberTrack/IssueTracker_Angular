@@ -1,0 +1,109 @@
+<div class="topbar">
+<h1 style= "color: #018AAA; font-size: 40px; font-weight: bold; margin: 20px;">Issues</h1>
+
+<div class="profile-container">
+    <div class="profile-picture">
+      <div class="rounded-image-profile">
+        <img id="FotoPerfil" src="assets\images\Foto_G.png" alt="Profile Image">
+      </div>
+      <div class="profile-menu">
+        <div class="menu-item">
+          <span>Gabriel del Valle</span>
+        </div>
+        <div class="menu-item">
+          <a href="URL_PARA_EDITAR_CUENTA" id="editAccountLink">Edit Account</a>
+        </div>
+        <div class="menu-item">
+          <a href="URL_PARA_VISUALIZAR_CUENTA" id="viewAccountLink">View Account</a>
+        </div>
+        <div class="menu-item">
+          <form action="URL_PARA_CERRAR_SESION" method="post">
+            <input type="hidden" name="_method" value="delete">
+            <input type="submit" value="Logout" class="button-basic" id="logoutButton">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+  <script>
+    function showProfileMenu() {
+      document.getElementById("editAccountLink").style.display = "block";
+      document.getElementById("viewAccountLink").style.display = "block";
+      document.getElementById("logoutButton").style.display = "block";
+    }
+  
+    function hideProfileMenu() {
+      document.getElementById("editAccountLink").style.display = "none";
+      document.getElementById("viewAccountLink").style.display = "none";
+      document.getElementById("logoutButton").style.display = "none";
+    }
+  </script>
+
+
+<div class="flex-container overflow-hidden" style="background-color: #e9effc; padding: 20px; margin: 20px; ">
+    <div class="row text-center px-3">
+      <div class="col-6 col-sm-3 col-md-1 col-lg-1 col-xl-1">
+        <h5>T</h5>
+      </div>
+      <div class="col-6 col-sm-3 col-md-1 col-lg-1 col-xl-1">
+        <h5>S</h5>
+      </div>
+      <div class="col-6 col-sm-3 col-md-1 col-lg-1 col-xl-1">
+        <h5>P</h5>
+      </div>
+      <div class="col-6 col-sm-3 col-md-1 col-lg-1 col-xl-1">
+        <h5>Subject</h5>
+      </div>
+      <div class="col-12 col-sm-0 col-md-5 col-lg-5 col-xl-5"></div>
+
+      <div class="col-6 col-sm-3 col-md-1 col-lg-1 col-xl-1">
+        <h5>Status</h5>
+      </div>
+      <div class="col-6 col-sm-3 col-md-1 col-lg-1 col-xl-1">
+        <h5>Assign to</h5>
+      </div>
+      <div class="col-6 col-sm-3 col-md-1 col-lg-1 col-xl-1">
+        <h5>Created</h5>
+      </div>
+    </div>
+  </div>
+
+  <hr style="border: none; height: 2px; background-color: #018AAA; margin: 20px;">
+  
+  <div class="flex-container overflow-hidden d-flex align-items-center justify-content-center" style="margin: 20px;">
+    <div class="row text-center">
+      <div class="col-12" *ngFor="let item of data">
+        <div class="card" (click)="onCardClick(item)">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-6 col-sm-3 col-md-1 col-lg-1 col-xl-1">
+                <p><span [style.background-color]="getTypeColor(item.issue_type)" class="circle"></span></p>
+              </div>
+              <div class="col-6 col-sm-3 col-md-1 col-lg-1 col-xl-1">
+                <p><span [style.background-color]="getColorSeverity(item.severity)" class="circle"></span></p>
+              </div>
+              <div class="col-6 col-sm-3 col-md-1 col-lg-1 col-xl-1">
+                <p><span [style.background-color]="getColorPriority(item.priority)" class="circle"></span></p>
+              </div>
+              <div class="col-6 col-sm-3 col-md-1 col-lg-1 col-xl-1" style="color: blue; font-weight: bold; font-size: 18px;">
+                <p>{{ item.subject }}</p>
+              </div>
+              <div class="col-12 col-sm-0 col-md-5 col-lg-5 col-xl-5"></div>
+              <div class="col-6 col-sm-3 col-md-1 col-lg-1 col-xl-1">
+                <p>{{ item.status }}</p>
+              </div>
+              <div class="col-6 col-sm-3 col-md-1 col-lg-1 col-xl-1">
+                <p>{{ item.assign }}</p>
+              </div>
+              <div class="col-6 col-sm-3 col-md-1 col-lg-1 col-xl-1">
+                <p>{{ item.created_by }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
