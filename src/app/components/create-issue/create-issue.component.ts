@@ -35,7 +35,8 @@ export class CreateIssueComponent implements OnInit {
   constructor(private apiService: ApiService) { }
 
   ngOnInit() {
-    this.createIssue();
+    //this.createIssue();
+    console.log("Inici fins aqui")
     // Inicializar cualquier otra lógica necesaria al iniciar el componente
   }
 
