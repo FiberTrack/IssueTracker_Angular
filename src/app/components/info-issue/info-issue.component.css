@@ -3,6 +3,27 @@
     padding: 30px;
     background-color: #f5f5f5;
   }
+
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .fondo-imagen {
+    width: 100%;
+    min-height: 100vh;
+    background-image: url(src/assets/images/Fondo.png);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
   
   .dos-columnas {
     display: flex;
