@@ -4,29 +4,37 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-info-issue',
+  templateUrl: './info-issue.component.html',
+  styleUrls: ['./info-issue.component.css']
 })
+export class InfoIssueComponent {
 
-export class HomeComponent implements OnInit {
+  data: any = {};
 
-  data: any;
+  today: Date = new Date();
+  deadlineDate: string = "";
 
+  constructor(private apiService: ApiService, private route: ActivatedRoute, private location: Location) { }
 
-  constructor(private apiService: ApiService, private location: Location) { }
-
-  ngOnInit(): void{
-    this.getAllIssues();
+  ngOnInit(): void {
+    this.getIssueById();
   }
 
-  getAllIssues(){
-    this.apiService.getIssues().subscribe( data => {
-      this.data = data;
-      console.log(this.data);
-    })
+  getIssueById(): void {
+    const issueId = this.route.snapshot.paramMap.get('id');
+    if (issueId) {
+      this.apiService.getIssueById(parseInt(issueId)).subscribe(
+        issue => {
+          this.data = issue;
+          console.log(this.data);
+        },
+        error => {
+          console.log('Error al obtener la issue:', error);
+        }
+      );
+    }
   }
-
   getColorType(type: string): string {
     switch (type) {
       case 'Bug':
@@ -70,7 +78,6 @@ export class HomeComponent implements OnInit {
     }
   }
 
-
   getTypeColor(type: string): string {
     switch (type) {
       case 'Bug':
@@ -90,12 +97,33 @@ export class HomeComponent implements OnInit {
       default:
         return 'black';
     }
-  }
+  }  
 
-  onCardClick(item: any) {
-    const issueId = item.id;
-    this.location.go(`/issues/${issueId}`);
+  goBack(): void {
+    this.location.go('/issues');
     window.location.href = this.location.path();
   }
 
+  goToEdit(): void {
+  }
+
+  deleteIssue(): void {
+  }
+
+  toggleBlocked(): void {
+  }
+
+  addDeadline(): void {
+  }
+
+  deleteDeadline(): void {
+  }
+
+  addComment(): void{
+  }
+
+  newComment(): void{
+  }
+
 }
+
