@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-
-import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/service/api.service';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
@@ -35,7 +32,7 @@ export class CreateIssueComponent implements OnInit {
     watcher_ids: []
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private apiService: ApiService) { }
 
   ngOnInit() {
     this.createIssue();
@@ -44,12 +41,12 @@ export class CreateIssueComponent implements OnInit {
 
   // Implementar la función para enviar la petición de creación del issue
   createIssue() {
-    this.apiService.createIssue(issue).subscribe(
-      (response) => {
+    this.apiService.createIssue(this.issue).subscribe(
+      (response: any) => {
         // Manejar la respuesta exitosa de la API
         console.log('Issue creado:', response);
       },
-      (error) => {
+      (error: any) => {
         // Manejar el error de la API
         console.error('Error al crear el issue:', error);
       }
