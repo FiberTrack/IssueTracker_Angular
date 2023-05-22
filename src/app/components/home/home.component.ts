@@ -8,23 +8,37 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-
 export class HomeComponent implements OnInit {
 
   data: any;
-
+  direction: string = 'asc';
+  severities: string[] = ['Wishlist', 'Minor', 'Normal', 'Important', 'Critical'];
+  types: string[] = ['Bug', 'Question', 'Enhancement'];
+  priorities: string[] = ['Low', 'Normal', 'High'];
+  statuses: string[] = ['New', 'In Progress', 'Ready For Test', 'Postponed', 'Closed', 'Information Needed', 'Rejected'];
+  assigns: string[] = ['Abel Batalla', 'Abdelrahim Chelh El Azzaoui', 'Arnau Gracia', 'Gabriel Del Valle'];
+  filtroValue: string = "";
+  showFilters: boolean = false;
 
   constructor(private apiService: ApiService, private location: Location) { }
 
-  ngOnInit(): void{
+  ngOnInit(): void {
     this.getAllIssues();
   }
 
-  getAllIssues(){
-    this.apiService.getIssues().subscribe( data => {
+  getAllIssues() {
+    this.apiService.getIssues().subscribe(data => {
       this.data = data;
       console.log(this.data);
-    })
+    });
+  }
+
+  getOrderedIssues(orderBy: string) {
+    this.direction = this.direction === 'asc' ? 'desc' : 'asc';
+    this.apiService.getOrderedIssues(this.direction, orderBy).subscribe(data => {
+      this.data = data;
+      console.log(this.data);
+    });
   }
 
   getColorType(type: string): string {
@@ -51,7 +65,7 @@ export class HomeComponent implements OnInit {
       case 'Important':
         return 'orange';
       case 'Wishlist':
-          return 'grey';
+        return 'grey';
       default:
         return 'black';
     }
@@ -64,12 +78,11 @@ export class HomeComponent implements OnInit {
       case 'Normal':
         return 'yellow';
       case 'High':
-          return 'orange';
+        return 'orange';
       default:
         return 'black';
     }
   }
-
 
   getTypeColor(type: string): string {
     switch (type) {
@@ -86,7 +99,7 @@ export class HomeComponent implements OnInit {
       case 'Important':
         return 'orange';
       case 'Wishlist':
-          return 'grey';
+        return 'grey';
       default:
         return 'black';
     }
@@ -98,4 +111,9 @@ export class HomeComponent implements OnInit {
     window.location.href = this.location.path();
   }
 
+  toggleFilters() {
+    this.showFilters = !this.showFilters;
+  }
 }
+
+
