@@ -23,5 +23,25 @@ export class ApiService {
     const headers = new HttpHeaders().set('Accept', 'application/json');
     return this.http.get<any>(apiUrl, { headers });
   }
+
+  public getCommentsById(issueId: number): Observable<any> {
+    const apiUrl = this.urlApi + 'issues/' + issueId + '/comments';
+    const headers = new HttpHeaders().set('Accept', 'application/json');
+    return this.http.get<any>(apiUrl, { headers });
+  }
+
+  public getActivitiesById(issueId: number): Observable<any> {
+    const apiUrl = this.urlApi + 'issues/' + issueId + '/activities';
+    const headers = new HttpHeaders().set('Accept', 'application/json');
+    return this.http.get<any>(apiUrl, { headers });
+  }
+
+  public getAttachmentsById(issueId: number): Observable<any> {
+    const apiUrl = this.urlApi + 'issues/' + issueId + '/attachments';
+    const headers = new HttpHeaders().set('Accept', 'application/json');
+    return this.http.get<any>(apiUrl, { headers });
+  }
+
+
 }
 

@@ -1,183 +1,188 @@
+<body>
+<div class="fondo-imagen">
 <div class="container issue-info" style="margin-top: 3%; display: flex; align-items: center;">
     <div *ngIf="data.blocked" class="blocked-message">🔒 Blocked</div>
     <div *ngIf="data.deadline" class="deadline-message">⌚ Due date: {{ data.deadline | date:'dd/MM/yyyy' }}</div>
   
-        <div class="col-8 vertical-divider">
-        <div class="col-12">
-          <h1 class="title">{{ data.subject }}</h1>
+    <div class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 vertical-divider">
+      <div class="col-12">
+        <h1 class="title">{{ data.subject }}</h1>
     
-          <h2 class="detail-title">Issue Description</h2>
-          <p class="description">{{ data.description }}</p>
-        </div>
+        <h2 class="detail-title">Issue Description</h2>
+        <p class="description">{{ data.description }}</p>
+      </div>
     
-        <div class="row">
-            <div class="details">
-              <div class="col-6 text-center">
-                <div class="detail">
-                  <h2 class="detail-title">Assigned to</h2>
-                  <p class="detail-value">{{ data.assign }}</p>
-                </div>
-              </div>
-          
-              <div class="col-6 text-center ">
-                <div class="detail">
-                  <h2 class="detail-title">Created by</h2>
-                  <p class="detail-value">{{ data.created_by }}</p>
-                </div>
-              </div>
+      <div class="row">
+        <div class="details">
+          <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-center">
+            <div class="detail">
+              <h2 class="detail-title">Assigned to</h2>
+              <p class="detail-value">{{ data.assign }}</p>
             </div>
           </div>
-        <div class="row">
-              <div class="details">
-                <div class="col-6 text-center">
-                    <div class="detail align-items-center">
-                  <h2 class="detail-title">Watched by</h2>
-                  <div *ngIf="data.watcher_ids && data.watcher_ids.length > 0; else noWatchers">
-                    <p *ngFor="let watcherId of data.watcher_ids">{{ watcherId }}</p>
-                  </div>
-                  <ng-template #noWatchers>
-                    <p>Not watched</p>
-                  </ng-template>
-                </div>
-            </div>
     
-                <div class="col-6 text-center">
-                    <div class="detail align-items-center">
-                  <h2 class="detail-title">Date</h2>
-                  <p class="detail-value">{{ data.created_at | date:'dd MMMM yyyy' }}</p>
-                </div>
+          <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-center ">
+            <div class="detail">
+              <h2 class="detail-title">Created by</h2>
+              <p class="detail-value">{{ data.created_by }}</p>
             </div>
           </div>
         </div>
-        <div class="row">
+      </div>
+    
+      <div class="row">
+        <div class="details">
+          <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-center">
+            <div class="detail align-items-center">
+              <h2 class="detail-title">Watched by</h2>
+              <div *ngIf="data.watcher_ids && data.watcher_ids.length > 0; else noWatchers">
+                <p *ngFor="let watcherId of data.watcher_ids">{{ watcherId }}</p>
+              </div>
+              <ng-template #noWatchers>
+                <p>Not watched</p>
+              </ng-template>
+            </div>
+          </div>
+    
+          <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-center">
+            <div class="detail align-items-center">
+              <h2 class="detail-title">Date</h2>
+              <p class="detail-value">{{ data.created_at | date:'dd MMMM yyyy' }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="row">
         <div class="col-12">
           <div class="buttons">
-            <button class="edit-button" (click)="goBack()">Back</button>
-            <button class="edit-button" (click)="goToEdit()">Edit</button>
-            <button class="delete-button" (click)="deleteIssue()">Delete</button>
-  
-            <button class="block-button" [ngClass]="{'blocked': data?.blocked, 'unblocked': !data?.blocked}" (click)="toggleBlocked()">
+            <button class="edit-button col-2 col-sm-2 col-md-2 col-lg-2 col-xl-1 text-center" (click)="goBack()"style="display: flex; justify-content: center; align-items: center;">Back</button>
+            <button class="edit-button col-2 col-sm-2 col-md-2 col-lg-2 col-xl-1" (click)="goToEdit()"style="display: flex; justify-content: center; align-items: center;">Edit</button>
+            <button class="delete-button col-3 col-sm-2 col-md-2 col-lg-2 col-xl-1" (click)="deleteIssue()"style="display: flex; justify-content: center; align-items: center;">Delete</button>
+      
+            <button class="block-button col-2 col-sm-2 col-md-2 col-lg-2 col-xl-1" [ngClass]="{'blocked': data?.blocked, 'unblocked': !data?.blocked}" (click)="toggleBlocked()"style="display: flex; justify-content: center; align-items: center;">
               {{ (data?.blocked !== null && data?.blocked !== undefined ? data.blocked : false) ? '🔓' : '🔒' }}
             </button>
+          </div>
         </div>
-        </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-              <div *ngIf="!data.deadline" class="elements-in-row">
-                <p class="detail-title">Add deadline</p>
-                <form (ngSubmit)="addDeadline()" class="deadline-form">
-                  <div class="detail-value-container">
-                    <input type="date" name="deadline_date" [(ngModel)]="deadlineDate" [min]="today | date:'yyyy-MM-dd'">
-                    <button type="submit" class="deadline-button" style="    background-color: #f5f6ab;
-                    color: black;
-                    border: none;
-                    padding: 10px 20px;
-                    font-size: 16px;
-                    cursor: pointer;
-                    margin-left: 10px;
-                    border-radius: 5px;">⌚</button>
-                  </div>
-                </form>
+      </div>
+    
+      <div class="row">
+        <div class="col-12">
+          <div *ngIf="!data.deadline" class="elements-in-row">
+            <p class="detail-title col-2 col-sm-2 col-md-3 col-lg-3 col-xl-2">Add deadline</p>
+            <form (ngSubmit)="addDeadline()" class="deadline-form">
+              <div class="detail-value-container">
+                <input type="date" name="deadline_date" [(ngModel)]="deadlineDate" [min]="today | date:'yyyy-MM-dd'" class="col-7 col-sm-7 col-md-8 col-lg-8 col-xl-8">
+                <button type="submit" style="background-color: #f5f6ab;
+                color: #fff;
+                border: none;
+                padding: 10px 20px;
+                font-size: 16px;
+                cursor: pointer;
+                 margin-left: 10px;
+                 border-radius: 5px;"class="deadline-button">⌚</button>
               </div>
-              <div *ngIf="data.deadline" class="elements-in-row">
-                <form (ngSubmit)="deleteDeadline()" class="deadline-form">
-                  <div class="detail-value-container">
-                    <button type="submit" class="deadline-button">⌚</button>
-                  </div>
-                </form>
+            </form>
+          </div>
+          <div *ngIf="data.deadline" class="elements-in-row">
+            <form (ngSubmit)="deleteDeadline()" class="deadline-form">
+              <div class="detail-value-container">
+                <button type="submit" class="deadline-button col-3 col-sm-3 col-md-1 col-lg-2 col-xl-2">⌚</button>
               </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+      <div class="row">
+        <div class="details">
+          <div class="col-2"></div>
+          <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 text-center">
+            <div class="detail">
+              <h2 class="detail-title">Type:</h2>
+            </div>
+          </div>
+          <div class="col-10 col-sm-10 col-md-4 col-lg-4 col-xl-4 text-center">
+            <div class="detail">
+              <p class="detail-value">{{ data.issue_type }}</p>
+            </div>
+          </div>
+          <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 text-center">
+            <div class="detail">
+              <p><span [style.background-color]="getTypeColor(data.issue_type)" class="circle"></span></p>
             </div>
           </div>
         </div>
-
-        <div class="col-4">
-            <div class="row">
-            <div class="details">
-                <div class="col-2"></div>
-                <div class="col-4 text-center">
-                <div class="detail">
-                  <h2 class="detail-title">Type:</h2>
-                  </div>
-                </div>
-                    <div class="col-4 text-center">
-                      <div class="detail">
-                        <p class="detail-value">{{ data.issue_type }}</p>
-                      </div>
-                    </div>
-                    <div class="col-2 text-center">
-                      <div class="detail">
-                        <p><span [style.background-color]="getTypeColor(data.issue_type)" class="circle"></span></p>
-                      </div>
-                  </div>
+      </div>
+    
+      <div class="row">
+        <div class="details">
+          <div class="col-2"></div>
+          <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 text-center">
+            <div class="detail">
+              <h2 class="detail-title">Severity:</h2>
             </div>
+          </div>
+          <div class="col-10 col-sm-10 col-md-4 col-lg-4 col-xl-4 text-center">
+            <div class="detail">
+              <p class="detail-value">{{ data.severity }}</p>
             </div>
-            <div class="row">
-            <div class="details">
-                <div class="col-2"></div>
-                <div class="col-4 text-center">
-                <div class="detail">
-                    <h2 class="detail-title">Severity:</h2>
-                    </div>
-                </div>
-                  <div class="col-4 text-center">
-                    <div class="detail">
-                      <p class="detail-value">{{ data.severity }}</p>
-                    </div>
-                  </div>
-                  <div class="col-2 text-center">
-                    <div class="detail">
-                      <p><span [style.background-color]="getTypeColor(data.severity)" class="circle"></span></p>
-                    </div>
-                </div>
-                </div>
-              </div>
-              
-              <div class="row">
-                <div class="details">
-                    <div class="col-2"></div>
-                  <div class="col-4 text-center">
-                    <div class="detail">
-                      <h2 class="detail-title">Priority:</h2>
-                    </div>
-                  </div>
-                  <div class="col-4 text-center">
-                    <div class="detail">
-                      <p class="detail-value">{{ data.priority }}</p>
-                    </div>
-                  </div>
-                  <div class="col-2 text-center">
-                    <div class="detail">
-                      <p><span [style.background-color]="getTypeColor(data.priority)" class="circle"></span></p>
-                    </div>
-                </div>
-                </div>
-              </div>
-              
-              <div class="row">
-                <div class="details">
-                    <div class="col-2"></div>
-                  <div class="col-4 text-center">
-                    <div class="detail">
-                      <h2 class="detail-title">Status:</h2>
-                    </div>
-                  </div>
-                  <div class="col-4 text-center">
-                    <div class="detail">
-                      <p class="detail-value">{{ data.status }}</p>
-                    </div>
-                  </div>
-                  <div class="col-2 text-center">
-                    <div class="detail">
-                      <p><span [style.background-color]="getTypeColor(data.status)" class="circle"></span></p>
-                    </div>
-                </div>
-                </div>
-              </div>
-
+          </div>
+          <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 text-center">
+            <div class="detail">
+              <p><span [style.background-color]="getTypeColor(data.severity)" class="circle"></span></p>
+            </div>
+          </div>
         </div>
+      </div>
+    
+      <div class="row">
+        <div class="details">
+          <div class="col-2"></div>
+          <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 text-center">
+            <div class="detail">
+              <h2 class="detail-title">Priority:</h2>
+            </div>
+          </div>
+          <div class="col-10 col-sm-10 col-md-4 col-lg-4 col-xl-4 text-center">
+            <div class="detail">
+              <p class="detail-value">{{ data.priority }}</p>
+            </div>
+          </div>
+          <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 text-center">
+            <div class="detail">
+              <p><span [style.background-color]="getTypeColor(data.priority)" class="circle"></span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="row">
+        <div class="details">
+          <div class="col-2"></div>
+          <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 text-center">
+            <div class="detail">
+              <h2 class="detail-title">Status:</h2>
+            </div>
+          </div>
+          <div class="col-10 col-sm-10 col-md-4 col-lg-4 col-xl-4 text-center">
+            <div class="detail">
+              <p class="detail-value">{{ data.status }}</p>
+            </div>
+          </div>
+          <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 text-center">
+            <div class="detail">
+              <p><span [style.background-color]="getTypeColor(data.status)" class="circle"></span></p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="container issue-info">
+  </div>
+    <div class="container issue-info" style="margin-bottom: 3%;">
         <div class="col-12">
           <h2>Add comment:</h2>
           <form>
@@ -190,49 +195,41 @@
           </form>
         
           <h2>Comments:</h2>
-          <div class="comment">
+
+          <div *ngFor="let comment of comments" class="comment">
             <div class="user-comment">
               <img src="assets\images\Foto_G.png" class="rounded-image-avatar">
-              <p class="author_name"><strong>John Doe</strong></p>
-              <p>May 20, 2023 10:30 AM</p>
+              <p class="author_name"><strong>{{ comment.user_id }}</strong></p>
+              <p>{{ comment.created_at | date:'dd MMMM yyyy hh:mm a' }}</p>
             </div>
-            <p class="content-comment">HARDCOEADO. This is the first comment.</p>
+            <p class="content-comment">{{ comment.content }}</p>
           </div>
-        
-          <div class="comment">
-            <div class="user-comment">
-              <img src="assets\images\Foto_G.png" class="rounded-image-avatar">
-              <p class="author_name"><strong>Jane Smith</strong></p>
-              <p>May 21, 2023 02:45 PM</p>
-            </div>
-            <p class="content-comment">HARDCOEADO. Here's another comment.</p>
-          </div>
+
           <hr>
         </div>
             <div class="col-12">
             <h2>Attachments:</h2>
-        <div class="attachment-list">
-          <ul>
-            <li>
-              <a href="attachment_url_1" target="_blank">Attachment 1 - HARDCOEADO</a>
-            </li>
-            <li>
-              <a href="attachment_url_2" target="_blank">Attachment 2 - HARDCOEADO</a>
-            </li>
-          </ul>
-          <hr>
-        </div>
+            <div *ngIf="getAttachmentsLength() > 0">
+              <ul class="attachment-list">
+                <li *ngFor="let attachment of attachments">
+                  <a href="{{ attachment.url }}" target="_blank">{{ attachment.name }}</a>
+                </li>
+              </ul>
+            </div>
+            <div *ngIf="getAttachmentsLength() === 0">
+              <p>No attachments found.</p>
+            </div>
+
     </div>
         <div class="col-12">
         <h2>Activities:</h2>
-        <ul>
-            <li>Gabriel Del Valle blocked the issue on 08:38 AM 22 May 2023. - HARDCOEADO</li>
-            <li>Gabriel Del Valle unblocked the issue on 08:38 AM 22 May 2023. - HARDCOEADO</li>
-            <li>Gabriel Del Valle changed description of the issue on 09:51 AM 22 May 2023. - HARDCOEADO</li>
-        </ul>
+        <li *ngFor="let activity of activities">
+          {{ activity.user_id }} {{ activity.action }} the issue on {{ activity.created_at | date:'hh:mm a dd MMMM yyyy' }}.
+        </li>
         </div>
     </div>
-    
+  </div>
+</body>
 
 
 

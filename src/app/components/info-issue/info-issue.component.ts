@@ -11,6 +11,9 @@ import { ActivatedRoute } from '@angular/router';
 export class InfoIssueComponent {
 
   data: any = {};
+  comments: any;
+  activities: any;
+  attachments: any[] = [];
 
   today: Date = new Date();
   deadlineDate: string = "";
@@ -19,6 +22,9 @@ export class InfoIssueComponent {
 
   ngOnInit(): void {
     this.getIssueById();
+    this.getComments();
+    this.getActivities();
+    this.getAttachments();
   }
 
   getIssueById(): void {
@@ -35,6 +41,56 @@ export class InfoIssueComponent {
       );
     }
   }
+
+  getComments(): void {
+    const issueId = this.route.snapshot.paramMap.get('id');
+    if (issueId) {
+      this.apiService.getCommentsById(parseInt(issueId)).subscribe(
+        comment => {
+          this.comments = comment;
+          console.log(this.comments);
+        },
+        error => {
+          console.log('Error al obtener la issue:', error);
+        }
+      );
+    }
+  }
+
+  getActivities(): void {
+    const issueId = this.route.snapshot.paramMap.get('id');
+    if (issueId) {
+      this.apiService.getActivitiesById(parseInt(issueId)).subscribe(
+        acitivity => {
+          this.activities = acitivity;
+          console.log(this.activities);
+        },
+        error => {
+          console.log('Error al obtener la issue:', error);
+        }
+      );
+    }
+  }
+
+  getAttachments(): void {
+    const issueId = this.route.snapshot.paramMap.get('id');
+    if (issueId) {
+      this.apiService.getAttachmentsById(parseInt(issueId)).subscribe(
+        attachment => {
+          this.attachments = attachment;
+          console.log(this.attachments);
+        },
+        error => {
+          console.log('Error al obtener la issue:', error);
+        }
+      );
+    }
+  }
+
+  getAttachmentsLength(): number {
+    return this.attachments.length;
+  }
+
   getColorType(type: string): string {
     switch (type) {
       case 'Bug':
