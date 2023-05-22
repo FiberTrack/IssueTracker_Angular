@@ -18,4 +18,10 @@ export class ApiService {
     return this.http.get<any[]>(apiUrl, { headers }); // Realizar una solicitud GET a la URL de la API
   }
 
+  public getIssueById(issueId: number): Observable<any> {
+    const apiUrl = this.urlApi + 'issues/' + issueId;
+    const headers = new HttpHeaders().set('Accept', 'application/json');
+    return this.http.get<any>(apiUrl, { headers });
+  }
 }
+

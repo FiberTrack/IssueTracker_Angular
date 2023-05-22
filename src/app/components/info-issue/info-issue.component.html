@@ -1,0 +1,241 @@
+<div class="container issue-info" style="margin-top: 3%; display: flex; align-items: center;">
+    <div *ngIf="data.blocked" class="blocked-message">🔒 Blocked</div>
+    <div *ngIf="data.deadline" class="deadline-message">⌚ Due date: {{ data.deadline | date:'dd/MM/yyyy' }}</div>
+  
+        <div class="col-8 vertical-divider">
+        <div class="col-12">
+          <h1 class="title">{{ data.subject }}</h1>
+    
+          <h2 class="detail-title">Issue Description</h2>
+          <p class="description">{{ data.description }}</p>
+        </div>
+    
+        <div class="row">
+            <div class="details">
+              <div class="col-6 text-center">
+                <div class="detail">
+                  <h2 class="detail-title">Assigned to</h2>
+                  <p class="detail-value">{{ data.assign }}</p>
+                </div>
+              </div>
+          
+              <div class="col-6 text-center ">
+                <div class="detail">
+                  <h2 class="detail-title">Created by</h2>
+                  <p class="detail-value">{{ data.created_by }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        <div class="row">
+              <div class="details">
+                <div class="col-6 text-center">
+                    <div class="detail align-items-center">
+                  <h2 class="detail-title">Watched by</h2>
+                  <div *ngIf="data.watcher_ids && data.watcher_ids.length > 0; else noWatchers">
+                    <p *ngFor="let watcherId of data.watcher_ids">{{ watcherId }}</p>
+                  </div>
+                  <ng-template #noWatchers>
+                    <p>Not watched</p>
+                  </ng-template>
+                </div>
+            </div>
+    
+                <div class="col-6 text-center">
+                    <div class="detail align-items-center">
+                  <h2 class="detail-title">Date</h2>
+                  <p class="detail-value">{{ data.created_at | date:'dd MMMM yyyy' }}</p>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+        <div class="col-12">
+          <div class="buttons">
+            <button class="edit-button" (click)="goBack()">Back</button>
+            <button class="edit-button" (click)="goToEdit()">Edit</button>
+            <button class="delete-button" (click)="deleteIssue()">Delete</button>
+  
+            <button class="block-button" [ngClass]="{'blocked': data?.blocked, 'unblocked': !data?.blocked}" (click)="toggleBlocked()">
+              {{ (data?.blocked !== null && data?.blocked !== undefined ? data.blocked : false) ? '🔓' : '🔒' }}
+            </button>
+        </div>
+        </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+              <div *ngIf="!data.deadline" class="elements-in-row">
+                <p class="detail-title">Add deadline</p>
+                <form (ngSubmit)="addDeadline()" class="deadline-form">
+                  <div class="detail-value-container">
+                    <input type="date" name="deadline_date" [(ngModel)]="deadlineDate" [min]="today | date:'yyyy-MM-dd'">
+                    <button type="submit" class="deadline-button" style="    background-color: #f5f6ab;
+                    color: black;
+                    border: none;
+                    padding: 10px 20px;
+                    font-size: 16px;
+                    cursor: pointer;
+                    margin-left: 10px;
+                    border-radius: 5px;">⌚</button>
+                  </div>
+                </form>
+              </div>
+              <div *ngIf="data.deadline" class="elements-in-row">
+                <form (ngSubmit)="deleteDeadline()" class="deadline-form">
+                  <div class="detail-value-container">
+                    <button type="submit" class="deadline-button">⌚</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-4">
+            <div class="row">
+            <div class="details">
+                <div class="col-2"></div>
+                <div class="col-4 text-center">
+                <div class="detail">
+                  <h2 class="detail-title">Type:</h2>
+                  </div>
+                </div>
+                    <div class="col-4 text-center">
+                      <div class="detail">
+                        <p class="detail-value">{{ data.issue_type }}</p>
+                      </div>
+                    </div>
+                    <div class="col-2 text-center">
+                      <div class="detail">
+                        <p><span [style.background-color]="getTypeColor(data.issue_type)" class="circle"></span></p>
+                      </div>
+                  </div>
+            </div>
+            </div>
+            <div class="row">
+            <div class="details">
+                <div class="col-2"></div>
+                <div class="col-4 text-center">
+                <div class="detail">
+                    <h2 class="detail-title">Severity:</h2>
+                    </div>
+                </div>
+                  <div class="col-4 text-center">
+                    <div class="detail">
+                      <p class="detail-value">{{ data.severity }}</p>
+                    </div>
+                  </div>
+                  <div class="col-2 text-center">
+                    <div class="detail">
+                      <p><span [style.background-color]="getTypeColor(data.severity)" class="circle"></span></p>
+                    </div>
+                </div>
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="details">
+                    <div class="col-2"></div>
+                  <div class="col-4 text-center">
+                    <div class="detail">
+                      <h2 class="detail-title">Priority:</h2>
+                    </div>
+                  </div>
+                  <div class="col-4 text-center">
+                    <div class="detail">
+                      <p class="detail-value">{{ data.priority }}</p>
+                    </div>
+                  </div>
+                  <div class="col-2 text-center">
+                    <div class="detail">
+                      <p><span [style.background-color]="getTypeColor(data.priority)" class="circle"></span></p>
+                    </div>
+                </div>
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="details">
+                    <div class="col-2"></div>
+                  <div class="col-4 text-center">
+                    <div class="detail">
+                      <h2 class="detail-title">Status:</h2>
+                    </div>
+                  </div>
+                  <div class="col-4 text-center">
+                    <div class="detail">
+                      <p class="detail-value">{{ data.status }}</p>
+                    </div>
+                  </div>
+                  <div class="col-2 text-center">
+                    <div class="detail">
+                      <p><span [style.background-color]="getTypeColor(data.status)" class="circle"></span></p>
+                    </div>
+                </div>
+                </div>
+              </div>
+
+        </div>
+    </div>
+    <div class="container issue-info">
+        <div class="col-12">
+          <h2>Add comment:</h2>
+          <form>
+            <p>
+              <textarea style="width: 100%;"></textarea>
+            </p>
+            <p>
+              <button type="submit">Create comment</button>
+            </p>
+          </form>
+        
+          <h2>Comments:</h2>
+          <div class="comment">
+            <div class="user-comment">
+              <img src="assets\images\Foto_G.png" class="rounded-image-avatar">
+              <p class="author_name"><strong>John Doe</strong></p>
+              <p>May 20, 2023 10:30 AM</p>
+            </div>
+            <p class="content-comment">HARDCOEADO. This is the first comment.</p>
+          </div>
+        
+          <div class="comment">
+            <div class="user-comment">
+              <img src="assets\images\Foto_G.png" class="rounded-image-avatar">
+              <p class="author_name"><strong>Jane Smith</strong></p>
+              <p>May 21, 2023 02:45 PM</p>
+            </div>
+            <p class="content-comment">HARDCOEADO. Here's another comment.</p>
+          </div>
+          <hr>
+        </div>
+            <div class="col-12">
+            <h2>Attachments:</h2>
+        <div class="attachment-list">
+          <ul>
+            <li>
+              <a href="attachment_url_1" target="_blank">Attachment 1 - HARDCOEADO</a>
+            </li>
+            <li>
+              <a href="attachment_url_2" target="_blank">Attachment 2 - HARDCOEADO</a>
+            </li>
+          </ul>
+          <hr>
+        </div>
+    </div>
+        <div class="col-12">
+        <h2>Activities:</h2>
+        <ul>
+            <li>Gabriel Del Valle blocked the issue on 08:38 AM 22 May 2023. - HARDCOEADO</li>
+            <li>Gabriel Del Valle unblocked the issue on 08:38 AM 22 May 2023. - HARDCOEADO</li>
+            <li>Gabriel Del Valle changed description of the issue on 09:51 AM 22 May 2023. - HARDCOEADO</li>
+        </ul>
+        </div>
+    </div>
+    
+
+
+
+
+
+  
