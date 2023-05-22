@@ -1,1 +1,24 @@
-<p>create-issue works!</p>
+<form (ngSubmit)="createIssue()" #issueForm="ngForm">
+    <div>
+      <label for="subject">Subject:</label>
+      <input type="text" id="subject" name="subject" ngModel required>
+    </div>
+    <div>
+      <label for="description">Description:</label>
+      <textarea id="description" name="description" ngModel required></textarea>
+    </div>
+    <div>
+      <label for="assign">Assigned:</label>
+      <select id="assign" name="assign" ngModel required>
+        <option value="Gabriel Del Valle">Gabriel Del Valle</option>
+        <option value="Arnau Gracia López">Arnau Gracia López</option>
+        <option value="Abdelrahim Chelh El Azzaoui">Abdelrahim Chelh El Azzaoui</option>
+        <option value="Abel Batalla Ferrés">Abel Batalla Ferrés</option>
+      </select>
+    </div>
+    <!-- Agrega los demás campos del formulario de acuerdo a tus necesidades -->
+    <div>
+      <button type="submit" [disabled]="!issueForm.valid">Create Issue</button>
+    </div>
+  </form>
+  

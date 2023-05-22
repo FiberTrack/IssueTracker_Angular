@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+import { Component, OnInit } from '@angular/core';
+import { ApiService } from 'src/app/service/api.service';
+import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+
 interface IssueData {
   subject: string;
   description: string;
@@ -33,14 +38,13 @@ export class CreateIssueComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
+    this.createIssue();
     // Inicializar cualquier otra lógica necesaria al iniciar el componente
   }
 
   // Implementar la función para enviar la petición de creación del issue
   createIssue() {
-    const apiUrl = 'URL_DE_LA_API'; // Reemplazar con la URL de la API para crear el issue
-    const headers = new HttpHeaders().set('Content-Type', 'application/json');
-    this.http.post(apiUrl, this.issue, { headers }).subscribe(
+    this.apiService.createIssue(issue).subscribe(
       (response) => {
         // Manejar la respuesta exitosa de la API
         console.log('Issue creado:', response);
