@@ -41,6 +41,7 @@ export class CreateIssueComponent implements OnInit {
 
   // Implementar la función para enviar la petición de creación del issue
   createIssue() {
+    console.log("Funciona fins aqui")
     this.apiService.createIssue(this.issue).subscribe(
       (response: any) => {
         // Manejar la respuesta exitosa de la API
