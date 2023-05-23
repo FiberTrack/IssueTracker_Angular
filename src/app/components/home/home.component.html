@@ -86,7 +86,7 @@
       <form action="/issues" method="get" class="form-inline" style="white-space: nowrap; padding-top: 20px;">
         <div class="input-group">
           <input type="text" name="filtro" class="form-control busqueda" placeholder="subject or reference" value="{{ filtroValue }}">
-          <button type="submit" class="btn btn-primary boto-filters">Buscar</button>
+          <button type="button" class="btn btn-primary boto-filters" id="buscarButton">Buscar</button>
         </div>
       </form>
     </div>
@@ -129,7 +129,7 @@
         <button (click)="getOrderedIssues('subject')" class="btn btn-primary">&#9650;&#9660;</button>
       </div>
     </div>
-    <div class="col-12 col-sm-0 col-md-1 col-lg-1 col-xl-1"></div>
+    <div class="col-12 col-sm-0 col-md-1 col-lg-1 col-xl-2"></div>
     <div class="col-6 col-sm-3 col-md-1 col-lg-1 col-xl-1">
       <div class="column-container">
         <h5>Status</h5>
@@ -153,7 +153,7 @@
 
   <hr style="border: none; height: 2px; background-color: #018AAA; margin: 20px;">
   
-  <div class="flex-container overflow-hidden d-flex align-items-center justify-content-center" style="margin: 20px;">
+  <div class="flex-container overflow-hidden" style="margin: 20px;">
     <div class="row text-center">
       <div class="col-12" *ngFor="let item of data">
         <div class="card" (click)="onCardClick(item)">
@@ -171,7 +171,7 @@
               <div class="col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3" style="color: blue; font-weight: bold; font-size: 18px;">
                 <p>{{ item.subject }}</p>
               </div>
-              <div class="col-12 col-sm-0 col-md-1 col-lg-1 col-xl-1"></div>
+              <div class="col-12 col-sm-0 col-md-1 col-lg-1 col-xl-2"></div>
               <div class="col-6 col-sm-3 col-md-1 col-lg-1 col-xl-1">
                 <p>{{ item.status }}</p>
               </div>
