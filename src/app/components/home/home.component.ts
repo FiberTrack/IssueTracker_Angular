@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
   constructor(private apiService: ApiService, private location: Location) { }
 
   ngOnInit(): void{
+    console.log("Funciona fins aqui HOME")
     this.getAllIssues();
   }
 

@@ -3,15 +3,16 @@ import { ApiService } from 'src/app/service/api.service';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 
+
 interface IssueData {
   subject: string;
   description: string;
-  assign: string;
-  severity: string;
-  priority: string;
-  issue_type: string;
-  status: string;
-  watcher_ids: string[];
+  assign: string | undefined;
+  severity: string | undefined;
+  priority: string | undefined;
+  issue_type: string | undefined;
+  status: string | undefined;
+  watcher_ids: string[] | undefined;
 }
 
 @Component({
@@ -22,7 +23,7 @@ interface IssueData {
 export class CreateIssueComponent implements OnInit {
 
   issue: IssueData = {
-    subject: 'prova Angular',
+    subject: '',
     description: '',
     assign: '',
     severity: '',
@@ -31,6 +32,7 @@ export class CreateIssueComponent implements OnInit {
     status: '',
     watcher_ids: []
   };
+
 
   constructor(private apiService: ApiService) { }
 
@@ -41,9 +43,9 @@ export class CreateIssueComponent implements OnInit {
   }
 
   // Implementar la función para enviar la petición de creación del issue
-  createIssue() {
+  createIssue(formValues: IssueData) {
     console.log("Funciona fins aqui")
-    this.apiService.createIssue(this.issue).subscribe(
+    this.apiService.createIssue(formValues).subscribe(
       (response: any) => {
         // Manejar la respuesta exitosa de la API
         console.log('Issue creado:', response);
