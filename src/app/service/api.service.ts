@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -69,13 +70,11 @@ export class ApiService {
     return this.http.get<any>(apiUrl, { headers });
   }
 
-  public getInfoUser(userId: number): Observable<any> {
-    const apiUrl = this.urlApi + 'users/' + userId;
+  public getUsuaris(): Observable<any[]> {
+    const apiUrl = this.urlApi + 'users';
     const headers = new HttpHeaders().set('Accept', 'application/json');
-    return this.http.get<any>(apiUrl, { headers });
+    return this.http.get<any[]>(apiUrl, { headers });
   }
-
-
 
 }
 
