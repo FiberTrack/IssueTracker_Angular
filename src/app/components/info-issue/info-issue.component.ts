@@ -3,18 +3,32 @@ import { ApiService } from 'src/app/service/api.service';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 
+interface Person {
+  id: number;
+  full_name: string;
+  uid: string;
+  avatar_url: string;
+  provider: string;
+  email: string;
+  bio: string;
+}
+
+
 @Component({
   selector: 'app-info-issue',
   templateUrl: './info-issue.component.html',
   styleUrls: ['./info-issue.component.css']
 })
+
+
 export class InfoIssueComponent {
 
   data: any = {};
   comments: any;
   activities: any;
   attachments: any[] = [];
-
+  info_user: any;
+  usuaris: Person[] = [];
   today: Date = new Date();
   deadlineDate: string = "";
 
@@ -25,7 +39,15 @@ export class InfoIssueComponent {
     this.getComments();
     this.getActivities();
     this.getAttachments();
+    this.getUsuaris();
   }
+
+  getUsuaris(){
+    this.apiService.getUsuaris().subscribe(usuaris => {
+      this.usuaris = usuaris;
+      console.log(this.usuaris);
+    });
+  }  
 
   getIssueById(): void {
     const issueId = this.route.snapshot.paramMap.get('id');
@@ -70,6 +92,16 @@ export class InfoIssueComponent {
         }
       );
     }
+  }
+
+  getUserAvatarUrl(userId: number): string {
+    const user = this.usuaris.find(user => user.id === userId);
+    return user ? user.avatar_url : 'assets/images/default-avatar.png'; // Cambia la ruta de la imagen predeterminada según tus necesidades
+  }
+
+  getFullName(userId: number): string {
+    const user = this.usuaris.find((user: Person) => user.id === userId);
+    return user ? user.full_name : '';
   }
 
   getAttachments(): void {
