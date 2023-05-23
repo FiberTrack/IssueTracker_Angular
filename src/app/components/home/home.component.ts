@@ -19,11 +19,20 @@ export class HomeComponent implements OnInit {
   assigns: string[] = ['Abel Batalla', 'Abdelrahim Chelh El Azzaoui', 'Arnau Gracia', 'Gabriel Del Valle'];
   filtroValue: string = "";
   showFilters: boolean = false;
+  filtroBusqueda: boolean = false;
+  filtroFiltros: boolean = false;
 
   constructor(private apiService: ApiService, private location: Location) { }
 
   ngOnInit(): void {
     this.getAllIssues();
+    document.addEventListener('DOMContentLoaded', () => {
+      const buscarButton = document.getElementById('buscarButton');
+      if (buscarButton) {
+        buscarButton.addEventListener('click', this.buscar.bind(this));
+      }
+    });
+    this.filtroBusqueda = false;
   }
 
   getAllIssues() {
@@ -35,10 +44,30 @@ export class HomeComponent implements OnInit {
 
   getOrderedIssues(orderBy: string) {
     this.direction = this.direction === 'asc' ? 'desc' : 'asc';
-    this.apiService.getOrderedIssues(this.direction, orderBy).subscribe(data => {
+    if (this.filtroBusqueda) {
+      const filtroValue = (document.querySelector('.busqueda') as HTMLInputElement).value;
+      this.apiService.getOrderedIssuesBusqueda(this.direction, orderBy, filtroValue).subscribe(data => {
+        this.data = data;
+        console.log(this.data);
+      });
+    }
+    else this.apiService.getOrderedIssues(this.direction, orderBy).subscribe(data => {
       this.data = data;
       console.log(this.data);
     });
+  }
+
+  getBusquedaIssue(busqueda: string) {
+    this.filtroBusqueda = true;
+    this.apiService.getBusquedaIssue(busqueda).subscribe(data => {
+      this.data = data;
+      console.log(this.data);
+    });
+  }
+
+  buscar() {
+    const filtroValue = (document.querySelector('.busqueda') as HTMLInputElement).value;
+    this.getBusquedaIssue(filtroValue);
   }
 
   getColorType(type: string): string {

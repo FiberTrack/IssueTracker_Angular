@@ -27,6 +27,24 @@ export class ApiService {
     return this.http.get<any[]>(apiUrl, { headers, params });
   }
 
+  public getOrderedIssuesBusqueda(direction: string, orderBy: string,busqueda: string ): Observable<any[]> {
+    const apiUrl = this.urlApi + 'issues';
+    const headers = new HttpHeaders().set('Accept', 'application/json');
+    let params = new HttpParams();
+    params = params.set('direction', direction);
+    params = params.set('order_by', orderBy);
+    params = params.set('filtro', busqueda);
+    return this.http.get<any[]>(apiUrl, { headers, params });
+  }
+
+  public getBusquedaIssue(busqueda: string): Observable<any[]> {
+    const apiUrl = this.urlApi + 'issues';
+    const headers = new HttpHeaders().set('Accept', 'application/json');
+    let params = new HttpParams();
+    params = params.set('filtro', busqueda);
+    return this.http.get<any[]>(apiUrl, { headers, params });
+  }
+
   public getIssueById(issueId: number): Observable<any> {
     const apiUrl = this.urlApi + 'issues/' + issueId;
     const headers = new HttpHeaders().set('Accept', 'application/json');
@@ -50,6 +68,13 @@ export class ApiService {
     const headers = new HttpHeaders().set('Accept', 'application/json');
     return this.http.get<any>(apiUrl, { headers });
   }
+
+  public getInfoUser(userId: number): Observable<any> {
+    const apiUrl = this.urlApi + 'users/' + userId;
+    const headers = new HttpHeaders().set('Accept', 'application/json');
+    return this.http.get<any>(apiUrl, { headers });
+  }
+
 
 
 }
