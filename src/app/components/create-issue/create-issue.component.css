@@ -10,6 +10,12 @@
     width: 50%; /* La mitad del ancho total */
     margin-right: 20px; /* Agrega un margen derecho para separar las dos columnas */
   }
+
+  h2 {
+    text-align: center;
+    padding: 10px;
+  }
+
   
   .columna-derecha {
     width: 50%; /* La mitad del ancho total */

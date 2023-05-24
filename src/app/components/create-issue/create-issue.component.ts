@@ -26,13 +26,13 @@ export class CreateIssueComponent implements OnInit {
   issue: IssueData = {
     subject: '',
     description: '',
-    assign: '',
+    assign: 'Not Assigned',
     severity: 'Wishlist',
     priority: 'Low',
     issue_type: 'Bug',
     status: 'New',
     watcher_ids: [],
-    created_by: 'Arnau Gracia'
+    created_by: ''
   };
 
 

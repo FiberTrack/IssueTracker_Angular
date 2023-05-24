@@ -1,9 +1,8 @@
 <form (ngSubmit)="createIssue(issueForm.value)" #issueForm="ngForm">
-  <div>
-    <h2>{{ issueForm.errors?.['length'] }} prohibited this issue from being saved:</h2>
+    <h2>New Issue</h2>
 
 
-  </div>
+
 
   <br>
 
@@ -25,7 +24,7 @@
       <div>
         <label for="assign">Assigned:</label>
         <select id="assign" name="assign" [(ngModel)]="issue.assign" required>
-          <option value="">Not assigned</option>
+          <option value="Not Assigned">Not assigned</option>
           <option value="Gabriel Del Valle">Gabriel Del Valle</option>
           <option value="Arnau Gracia">Arnau Gracia</option>
           <option value="Abdelrahim Chelh El Azzaoui">Abdelrahim Chelh El Azzaoui</option>
