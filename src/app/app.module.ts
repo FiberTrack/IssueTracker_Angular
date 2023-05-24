@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { InfoIssueComponent } from './components/info-issue/info-issue.component';
 import { CreateIssueComponent } from './components/create-issue/create-issue.component';
+import { EditIssueComponent } from './components/edit-issue/edit-issue.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     InfoIssueComponent,
-    CreateIssueComponent
+    CreateIssueComponent,
+    EditIssueComponent
   ],
   imports: [
     BrowserModule,

@@ -203,6 +203,9 @@ export class InfoIssueComponent {
   }
 
   goToEdit(): void {
+    const issueId = this.route.snapshot.paramMap.get('id');
+    this.location.go(`/update-issues/${issueId}`);
+    window.location.href = this.location.path();
   }
 
   deleteIssue(): void {
