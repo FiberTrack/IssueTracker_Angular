@@ -51,6 +51,12 @@ export class ApiService {
     return this.http.get<any>(apiUrl, { headers });
   }
 
+  public getUsuaris(): Observable<any[]> {
+    const apiUrl = this.urlApi + 'users';
+    const headers = new HttpHeaders().set('Accept', 'application/json');
+    return this.http.get<any[]>(apiUrl, { headers });
+  }
+
 
 }
 

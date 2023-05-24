@@ -16,6 +16,19 @@ interface IssueData {
   created_by: string | undefined;
 }
 
+
+interface Person {
+  id: number;
+  full_name: string;
+  uid: string;
+  avatar_url: string;
+  provider: string;
+  email: string;
+  bio: string;
+  api_key: string
+}
+
+
 @Component({
   selector: 'app-create-issue',
   templateUrl: './create-issue.component.html',
@@ -34,13 +47,30 @@ export class CreateIssueComponent implements OnInit {
     watcher_ids: [],
     created_by: ''
   };
+  usuaris: Person[] = [];
+
+  constructor(private apiService: ApiService, private location: Location) { }
 
 
-  constructor(private apiService: ApiService) { }
+  getUsuaris(){
+    this.apiService.getUsuaris().subscribe(usuaris => {
+      this.usuaris = usuaris;
+  
+      // Verificar si todos los usuarios tienen la propiedad 'id'
+      const usuariosConID = this.usuaris.every(user => user.hasOwnProperty('id'));
+      if (!usuariosConID) {
+        console.error('Algunos usuarios no tienen la propiedad "id".');
+        return;
+      }
+      console.log(this.usuaris);
+    });
+  }
+
 
   ngOnInit() {
     //this.createIssue();
     console.log("Inici fins aqui")
+    this.getUsuaris()
     // Inicializar cualquier otra lógica necesaria al iniciar el componente
   }
 
@@ -51,6 +81,8 @@ export class CreateIssueComponent implements OnInit {
       (response: any) => {
         // Manejar la respuesta exitosa de la API
         console.log('Issue creado:', response);
+        this.location.go('/issues');
+        window.location.href = this.location.path();
       },
       (error: any) => {
         // Manejar el error de la API

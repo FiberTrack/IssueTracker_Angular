@@ -1,9 +1,5 @@
 <form (ngSubmit)="createIssue(issueForm.value)" #issueForm="ngForm">
     <h2>New Issue</h2>
-
-
-
-
   <br>
 
   <div class="formulario">
@@ -18,24 +14,22 @@
 
       <div>
         <label for="description">Description:</label>
-        <textarea id="description" name="description" [(ngModel)]="issue.description" required></textarea>
+        <textarea id="description" name="description" [(ngModel)]="issue.description" ></textarea>
       </div>
 
       <div>
         <label for="assign">Assigned:</label>
         <select id="assign" name="assign" [(ngModel)]="issue.assign" required>
-          <option value="Not Assigned">Not assigned</option>
-          <option value="Gabriel Del Valle">Gabriel Del Valle</option>
-          <option value="Arnau Gracia">Arnau Gracia</option>
-          <option value="Abdelrahim Chelh El Azzaoui">Abdelrahim Chelh El Azzaoui</option>
-          <option value="Abel Batalla Ferrés">Abel Batalla Ferrés</option>
+          <option value="Not Assigned">Not Assigned</option>
+          <option *ngFor="let user of usuaris" [value]="user.full_name">{{ user.full_name }}</option>
         </select>
       </div>
 
       <div>
         <label for="watcher_ids">Watched:</label>
         <select id="watcher_ids" name="watcher_ids" [(ngModel)]="issue.watcher_ids" multiple>
-          <option value="" disabled>Select users</option>
+          <option value="Not Assigned">Not assigned</option>
+          <option *ngFor="let user of usuaris" [value]="user.id">{{ user.full_name }}</option>
         </select>
       </div>
 
@@ -79,11 +73,11 @@
         <label for="status">Status:</label>
         <select id="status" name="status" [(ngModel)]="issue.status">
           <option value="New">New</option>
-          <option value="In progress">In Progress</option>
-          <option value="Ready for test">Ready For Test</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Ready For Test">Ready For Test</option>
           <option value="Postponed">Postponed</option>
           <option value="Closed">Closed</option>
-          <option value="Information needed">Information Needed</option>
+          <option value="Information Needed">Information Needed</option>
           <option value="Rejected">Rejected</option>
         </select>
       </div>
