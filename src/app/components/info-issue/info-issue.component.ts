@@ -11,6 +11,7 @@ interface Person {
   provider: string;
   email: string;
   bio: string;
+  api_key: string;
 }
 
 
@@ -45,9 +46,18 @@ export class InfoIssueComponent {
   getUsuaris(){
     this.apiService.getUsuaris().subscribe(usuaris => {
       this.usuaris = usuaris;
+  
+      // Verificar si todos los usuarios tienen la propiedad 'id'
+      const usuariosConID = this.usuaris.every(user => user.hasOwnProperty('id'));
+      if (!usuariosConID) {
+        console.error('Algunos usuarios no tienen la propiedad "id".');
+        return;
+      }
+  
+      this.usuaris.sort((a, b) => a.id - b.id); // Ordenar los usuarios por su ID
       console.log(this.usuaris);
     });
-  }  
+  }
 
   getIssueById(): void {
     const issueId = this.route.snapshot.paramMap.get('id');
@@ -96,7 +106,7 @@ export class InfoIssueComponent {
 
   getUserAvatarUrl(userId: number): string {
     const user = this.usuaris.find(user => user.id === userId);
-    return user ? user.avatar_url : 'assets/images/default-avatar.png'; // Cambia la ruta de la imagen predeterminada según tus necesidades
+    return user?.avatar_url || '';
   }
 
   getFullName(userId: number): string {

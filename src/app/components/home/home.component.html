@@ -5,20 +5,25 @@
 <div class="profile-container">
     <div class="profile-picture">
       <div class="rounded-image-profile">
-        <img id="FotoPerfil" src="assets\images\Foto_G.png" alt="Profile Image">
+        <img id="FotoPerfil" *ngIf="usuaris.length > 0" [src]="usuaris[usuari_actual].avatar_url" alt="Profile Image">
       </div>
       <div class="profile-menu">
         <div class="menu-item">
-          <span>Gabriel del Valle</span>
+          <span *ngIf="usuaris.length > 0">{{ usuaris[usuari_actual].full_name }}</span>
         </div>
         <div class="menu-item">
-          <a href="URL_PARA_EDITAR_CUENTA" id="editAccountLink">Edit Account</a>
+          <a href="" id="editAccountLink">Edit Account</a>
         </div>
         <div class="menu-item">
-          <a href="URL_PARA_VISUALIZAR_CUENTA" id="viewAccountLink">View Account</a>
+          <a href="" id="viewAccountLink">View Account</a>
         </div>
         <div class="menu-item">
           <form action="URL_PARA_CERRAR_SESION" method="post">
+            <div class="dropdown-container">
+              <select *ngIf="usuaris && usuaris.length > 0" name="userDropdown" class="user-dropdown" (change)="onUserChange($event)" [value]="usuaris[usuari_actual].id">
+                <option *ngFor="let user of usuaris" [value]="user.id">{{ user.full_name }}</option>
+              </select>
+            </div>
             <input type="hidden" name="_method" value="delete">
             <input type="submit" value="Logout" class="button-basic" id="logoutButton">
           </form>
