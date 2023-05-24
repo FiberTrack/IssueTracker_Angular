@@ -13,6 +13,7 @@ interface IssueData {
   issue_type: string | undefined;
   status: string | undefined;
   watcher_ids: string[] | undefined;
+  created_by: string | undefined;
 }
 
 @Component({
@@ -26,11 +27,12 @@ export class CreateIssueComponent implements OnInit {
     subject: '',
     description: '',
     assign: '',
-    severity: '',
-    priority: '',
-    issue_type: '',
-    status: '',
-    watcher_ids: []
+    severity: 'Wishlist',
+    priority: 'Low',
+    issue_type: 'Bug',
+    status: 'New',
+    watcher_ids: [],
+    created_by: 'Arnau Gracia'
   };
 
 

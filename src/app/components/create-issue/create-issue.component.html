@@ -1,23 +1,96 @@
 <form (ngSubmit)="createIssue(issueForm.value)" #issueForm="ngForm">
   <div>
-    <label for="subject">Subject:</label>
-    <input type="text" id="subject" name="subject" [(ngModel)]="issue.subject" required>
+    <h2>{{ issueForm.errors?.['length'] }} prohibited this issue from being saved:</h2>
+
+
   </div>
-  <div>
-    <label for="description">Description:</label>
-    <textarea id="description" name="description" [(ngModel)]="issue.description" required></textarea>
-  </div>
-  <div>
-    <label for="assign">Assigned:</label>
-    <select id="assign" name="assign" [(ngModel)]="issue.assign" required>
-      <option value="Gabriel Del Valle">Gabriel Del Valle</option>
-      <option value="Arnau Gracia">Arnau Gracia</option>
-      <option value="Abdelrahim Chelh El Azzaoui">Abdelrahim Chelh El Azzaoui</option>
-      <option value="Abel Batalla Ferrés">Abel Batalla Ferrés</option>
-    </select>
-  </div>
-  <!-- Agrega los demás campos del formulario de acuerdo a tus necesidades -->
-  <div>
-    <button type="submit" [disabled]="!issueForm.valid">Create Issue</button>
+
+  <br>
+
+  <div class="formulario">
+    <div class="columna-izquierda">
+      <div>
+        <label for="subject">Subject:</label>
+        <input type="text" id="subject" name="subject" [(ngModel)]="issue.subject" required>
+      </div>
+
+      <input type="hidden" name="created_by" [value]="issue.created_by">
+
+
+      <div>
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" [(ngModel)]="issue.description" required></textarea>
+      </div>
+
+      <div>
+        <label for="assign">Assigned:</label>
+        <select id="assign" name="assign" [(ngModel)]="issue.assign" required>
+          <option value="">Not assigned</option>
+          <option value="Gabriel Del Valle">Gabriel Del Valle</option>
+          <option value="Arnau Gracia">Arnau Gracia</option>
+          <option value="Abdelrahim Chelh El Azzaoui">Abdelrahim Chelh El Azzaoui</option>
+          <option value="Abel Batalla Ferrés">Abel Batalla Ferrés</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="watcher_ids">Watched:</label>
+        <select id="watcher_ids" name="watcher_ids" [(ngModel)]="issue.watcher_ids" multiple>
+          <option value="" disabled>Select users</option>
+        </select>
+      </div>
+
+      <button type="submit" [disabled]="!issueForm.valid">Create Issue</button>
+      <a routerLink="/issues" class="volver">Back</a>
+    </div>
+
+    <div class="separador"></div>
+
+    <div class="columna-derecha">
+      <div>
+        <label for="issue_type">Issue Type:</label>
+        <select id="issue_type" name="issue_type" [(ngModel)]="issue.issue_type">
+          <option value="Bug">Bug</option>
+          <option value="Question">Question</option>
+          <option value="Enhancement">Enhancement</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="severity">Severity:</label>
+        <select id="severity" name="severity" [(ngModel)]="issue.severity">
+          <option value="Wishlist">Wishlist</option>
+          <option value="Minor">Minor</option>
+          <option value="Normal">Normal</option>
+          <option value="Important">Important</option>
+          <option value="Critical">Critical</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="priority">Priority:</label>
+        <select id="priority" name="priority" [(ngModel)]="issue.priority">
+          <option value="Low">Low</option>
+          <option value="Normal">Normal</option>
+          <option value="High">High</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="status">Status:</label>
+        <select id="status" name="status" [(ngModel)]="issue.status">
+          <option value="New">New</option>
+          <option value="In progress">In Progress</option>
+          <option value="Ready for test">Ready For Test</option>
+          <option value="Postponed">Postponed</option>
+          <option value="Closed">Closed</option>
+          <option value="Information needed">Information Needed</option>
+          <option value="Rejected">Rejected</option>
+        </select>
+      </div>
+    </div>
+
+    <div style="clear: both;"></div>
   </div>
 </form>
+
