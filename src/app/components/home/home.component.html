@@ -18,15 +18,11 @@
           <a href="" id="viewAccountLink">View Account</a>
         </div>
         <div class="menu-item">
-          <form action="URL_PARA_CERRAR_SESION" method="post">
             <div class="dropdown-container">
               <select *ngIf="usuaris && usuaris.length > 0" name="userDropdown" class="user-dropdown" (change)="onUserChange($event)" [value]="usuaris[usuari_actual].id">
                 <option *ngFor="let user of usuaris" [value]="user.id">{{ user.full_name }}</option>
               </select>
             </div>
-            <input type="hidden" name="_method" value="delete">
-            <input type="submit" value="Logout" class="button-basic" id="logoutButton">
-          </form>
         </div>
       </div>
     </div>
