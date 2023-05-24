@@ -121,6 +121,16 @@
     background-color: #387e90;
   }
 
+  .dropdown-container {
+    position: relative;
+    width: 150px; /* Ajusta el ancho del dropdown según tus necesidades */
+  }
+  
+  .user-dropdown {
+    width: 100%;
+    /* Otros estilos CSS para el dropdown */
+  }
+
   .checkbox-list {
     padding-left: 20px;
     background-color: #e9effc; /* Color de fondo */

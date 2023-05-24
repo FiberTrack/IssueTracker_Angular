@@ -3,11 +3,25 @@ import { ApiService } from 'src/app/service/api.service';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 
+
+interface Person {
+  id: number;
+  full_name: string;
+  uid: string;
+  avatar_url: string;
+  provider: string;
+  email: string;
+  bio: string;
+  api_key: string
+}
+
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
+
 export class HomeComponent implements OnInit {
 
   data: any;
@@ -21,6 +35,8 @@ export class HomeComponent implements OnInit {
   showFilters: boolean = false;
   filtroBusqueda: boolean = false;
   filtroFiltros: boolean = false;
+  usuaris: Person[] = [];
+  usuari_actual = 0;
 
   constructor(private apiService: ApiService, private location: Location) { }
 
@@ -33,6 +49,23 @@ export class HomeComponent implements OnInit {
       }
     });
     this.filtroBusqueda = false;
+    this.getUsuaris();
+  }
+
+  getUsuaris(){
+    this.apiService.getUsuaris().subscribe(usuaris => {
+      this.usuaris = usuaris;
+  
+      // Verificar si todos los usuarios tienen la propiedad 'id'
+      const usuariosConID = this.usuaris.every(user => user.hasOwnProperty('id'));
+      if (!usuariosConID) {
+        console.error('Algunos usuarios no tienen la propiedad "id".');
+        return;
+      }
+  
+      this.usuaris.sort((a, b) => a.id - b.id); // Ordenar los usuarios por su ID
+      console.log(this.usuaris);
+    });
   }
 
   getAllIssues() {
@@ -142,6 +175,10 @@ export class HomeComponent implements OnInit {
 
   toggleFilters() {
     this.showFilters = !this.showFilters;
+  }
+
+  onUserChange(event: any) {
+    this.usuari_actual = event?.target?.value - 1;
   }
 }
 
