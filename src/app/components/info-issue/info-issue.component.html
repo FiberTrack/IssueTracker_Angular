@@ -173,11 +173,6 @@
               <p class="detail-value">{{ data.status }}</p>
             </div>
           </div>
-          <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 text-center">
-            <div class="detail">
-              <p><span [style.background-color]="getTypeColor(data.status)" class="circle"></span></p>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -198,9 +193,14 @@
 
           <div *ngFor="let comment of comments" class="comment">
             <div class="user-comment">
-              <img src="assets\images\Foto_G.png" class="rounded-image-avatar">
-              <p class="author_name"><strong>{{ comment.user_id }}</strong></p>
-              <p>{{ comment.created_at | date:'dd MMMM yyyy hh:mm a' }}</p>
+              <img [src]="getUserAvatarUrl(comment.user_id)" class="rounded-image-avatar">
+              <div class="user-comment">
+                <p class="author_name">
+                  <strong>{{ getFullName(comment.user_id) }}</strong>
+                  <span class="spacer"></span>
+                </p>
+                <p>{{ comment.created_at | date:'dd MMMM yyyy hh:mm a' }}</p>
+              </div>
             </div>
             <p class="content-comment">{{ comment.content }}</p>
           </div>
@@ -224,7 +224,7 @@
         <div class="col-12">
         <h2>Activities:</h2>
         <li *ngFor="let activity of activities">
-          {{ activity.user_id }} {{ activity.action }} the issue on {{ activity.created_at | date:'hh:mm a dd MMMM yyyy' }}.
+          {{ getFullName(activity.user_id) }} {{ activity.action }} the issue on {{ activity.created_at | date:'hh:mm a dd MMMM yyyy' }}.
         </li>
         </div>
     </div>

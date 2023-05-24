@@ -226,3 +226,8 @@
     height: 20px;
     border-radius: 50%;
   }
+
+  .spacer {
+    display: inline-block;
+    width: 10px; /* Ajusta el valor según el espaciado deseado */
+  }

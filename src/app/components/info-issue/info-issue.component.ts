@@ -3,18 +3,33 @@ import { ApiService } from 'src/app/service/api.service';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 
+interface Person {
+  id: number;
+  full_name: string;
+  uid: string;
+  avatar_url: string;
+  provider: string;
+  email: string;
+  bio: string;
+  api_key: string;
+}
+
+
 @Component({
   selector: 'app-info-issue',
   templateUrl: './info-issue.component.html',
   styleUrls: ['./info-issue.component.css']
 })
+
+
 export class InfoIssueComponent {
 
   data: any = {};
   comments: any;
   activities: any;
   attachments: any[] = [];
-
+  info_user: any;
+  usuaris: Person[] = [];
   today: Date = new Date();
   deadlineDate: string = "";
 
@@ -25,6 +40,23 @@ export class InfoIssueComponent {
     this.getComments();
     this.getActivities();
     this.getAttachments();
+    this.getUsuaris();
+  }
+
+  getUsuaris(){
+    this.apiService.getUsuaris().subscribe(usuaris => {
+      this.usuaris = usuaris;
+  
+      // Verificar si todos los usuarios tienen la propiedad 'id'
+      const usuariosConID = this.usuaris.every(user => user.hasOwnProperty('id'));
+      if (!usuariosConID) {
+        console.error('Algunos usuarios no tienen la propiedad "id".');
+        return;
+      }
+  
+      this.usuaris.sort((a, b) => a.id - b.id); // Ordenar los usuarios por su ID
+      console.log(this.usuaris);
+    });
   }
 
   getIssueById(): void {
@@ -70,6 +102,16 @@ export class InfoIssueComponent {
         }
       );
     }
+  }
+
+  getUserAvatarUrl(userId: number): string {
+    const user = this.usuaris.find(user => user.id === userId);
+    return user?.avatar_url || '';
+  }
+
+  getFullName(userId: number): string {
+    const user = this.usuaris.find((user: Person) => user.id === userId);
+    return user ? user.full_name : '';
   }
 
   getAttachments(): void {

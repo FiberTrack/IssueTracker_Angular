@@ -1,64 +1,160 @@
+<div class="fondo-imagen">
 <div class="topbar">
 <h1 style= "color: #018AAA; font-size: 40px; font-weight: bold; margin: 20px;">Issues</h1>
 <a routerLink="/create-issue">Crear Issue</a>
 <div class="profile-container">
     <div class="profile-picture">
       <div class="rounded-image-profile">
-        <img id="FotoPerfil" src="assets\images\Foto_G.png" alt="Profile Image">
+        <img id="FotoPerfil" *ngIf="usuaris.length > 0" [src]="usuaris[usuari_actual].avatar_url" alt="Profile Image">
       </div>
       <div class="profile-menu">
         <div class="menu-item">
-          <span>Gabriel del Valle</span>
+          <span *ngIf="usuaris.length > 0">{{ usuaris[usuari_actual].full_name }}</span>
         </div>
         <div class="menu-item">
-          <a href="URL_PARA_EDITAR_CUENTA" id="editAccountLink">Edit Account</a>
+          <a href="" id="editAccountLink">Edit Account</a>
         </div>
         <div class="menu-item">
-          <a href="URL_PARA_VISUALIZAR_CUENTA" id="viewAccountLink">View Account</a>
+          <a href="" id="viewAccountLink">View Account</a>
         </div>
         <div class="menu-item">
-          <form action="URL_PARA_CERRAR_SESION" method="post">
-            <input type="hidden" name="_method" value="delete">
-            <input type="submit" value="Logout" class="button-basic" id="logoutButton">
-          </form>
+            <div class="dropdown-container">
+              <select *ngIf="usuaris && usuaris.length > 0" name="userDropdown" class="user-dropdown" (change)="onUserChange($event)" [value]="usuaris[usuari_actual].id">
+                <option *ngFor="let user of usuaris" [value]="user.id">{{ user.full_name }}</option>
+              </select>
+            </div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
+<div class="flex-container overflow-hidden" style="margin-top: 2%;">
+  <div class="row align-items-end text-center px-3">
+    <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 d-flex flex-column justify-content-start">
+      <div class="container">
+        <button class="btn btn-primary" (click)="toggleFilters()">
+          {{ showFilters ? 'Hide Filters' : 'Show Filters' }}
+        </button>
+    
+        <div *ngIf="showFilters" class="my-3">
+          <h4 style="background-color: lightblue;">Severities:</h4>
+          <div class="checkbox-list">
+            <div class="form-check" *ngFor="let severity of severities">
+              <input class="form-check-input" type="checkbox" name="severities[]" [value]="severity" id="{{ 'severity-' + severity }}">
+              <label class="form-check-label" for="{{ 'severity-' + severity }}">{{ severity }}</label>
+            </div>
+          </div>
+          <br>
+    
+          <h4 style="background-color: lightblue;">Types:</h4>
+          <div class="checkbox-list">
+            <div class="form-check" *ngFor="let type of types">
+              <input class="form-check-input" type="checkbox" name="types[]" [value]="type" id="{{ 'type-' + type }}">
+              <label class="form-check-label" for="{{ 'type-' + type }}">{{ type }}</label>
+            </div>
+          </div>
+          <br>
+          <h4 style="background-color: lightblue;">Priorities:</h4>
+          <div class="checkbox-list">
+            <div class="form-check" *ngFor="let priority of priorities">
+              <input class="form-check-input" type="checkbox" name="priorities[]" [value]="priority" id="{{ 'priority-' + priority }}">
+              <label class="form-check-label" for="{{ 'priority-' + priority }}">{{ priority }}</label>
+            </div>
+          </div>
+          <br>
+          <h4 style="background-color: lightblue;">Statuses:</h4>
+          <div class="checkbox-list">
+            <div class="form-check" *ngFor="let status of statuses">
+              <input class="form-check-input" type="checkbox" name="statuses[]" [value]="status" id="{{ 'status-' + status }}">
+              <label class="form-check-label" for="{{ 'status-' + status }}">{{ status }}</label>
+            </div>
+          </div>
+          <br>
+          <h4 style="background-color: lightblue;">Assigns:</h4>
+          <div class="checkbox-list">
+            <div class="form-check" *ngFor="let assign of assigns">
+              <input class="form-check-input" type="checkbox" name="assigns[]" [value]="assign" id="{{ 'assign-' + assign }}">
+              <label class="form-check-label" for="{{ 'assign-' + assign }}">{{ assign }}</label>
+            </div>
+        </div>
+        
+        <button class="btn btn-primary" >Filter</button>
+      </div>
+    </div>
+    </div>
+    <div class="col-5 col-sm-5 col-md-5 col-lg-5 col-xl-2 d-flex justify-content-start">
+      <form action="/issues" method="get" class="form-inline" style="white-space: nowrap; padding-top: 20px;">
+        <div class="input-group">
+          <input type="text" name="filtro" class="form-control busqueda" placeholder="subject or reference" value="{{ filtroValue }}">
+          <button type="button" class="btn btn-primary boto-filters" id="buscarButton">Buscar</button>
+        </div>
+      </form>
+    </div>
+  <div class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-5"></div>
+  <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+    <a href="/" class="btn2">+ NEW ISSUE</a>
+  </div>
+  <div class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-1">
+    <a href="/" class="btn2">+Bulk</a>
+  </div>
+  </div>
+</div>
 
-<div class="flex-container overflow-hidden" style="background-color: #e9effc; padding: 20px; margin: 20px; ">
-    <div class="row text-center px-3">
-      <div class="col-6 col-sm-3 col-md-1 col-lg-1 col-xl-1">
+
+
+
+<div class="flex-container overflow-hidden" style="background-color: #e9effc; padding: 20px; margin: 20px;">
+  <div class="row text-center px-3">
+    <div class="col-6 col-sm-3 col-md-1 col-lg-1 col-xl-1">
+      <div class="column-container">
         <h5>T</h5>
+        <button (click)="getOrderedIssues('issue_type')" class="btn btn-primary">&#9650;&#9660;</button>
       </div>
-      <div class="col-6 col-sm-3 col-md-1 col-lg-1 col-xl-1">
+    </div>
+    <div class="col-6 col-sm-3 col-md-1 col-lg-1 col-xl-1">
+      <div class="column-container">
         <h5>S</h5>
+        <button (click)="getOrderedIssues('severity')" class="btn btn-primary">&#9650;&#9660;</button>
       </div>
-      <div class="col-6 col-sm-3 col-md-1 col-lg-1 col-xl-1">
+    </div>
+    <div class="col-6 col-sm-3 col-md-1 col-lg-1 col-xl-1">
+      <div class="column-container">
         <h5>P</h5>
+        <button (click)="getOrderedIssues('priority')" class="btn btn-primary">&#9650;&#9660;</button>
       </div>
-      <div class="col-6 col-sm-3 col-md-1 col-lg-1 col-xl-1">
+    </div>
+    <div class="col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+      <div class="column-container">
         <h5>Subject</h5>
+        <button (click)="getOrderedIssues('subject')" class="btn btn-primary">&#9650;&#9660;</button>
       </div>
-      <div class="col-12 col-sm-0 col-md-5 col-lg-5 col-xl-5"></div>
-
-      <div class="col-6 col-sm-3 col-md-1 col-lg-1 col-xl-1">
+    </div>
+    <div class="col-12 col-sm-0 col-md-1 col-lg-1 col-xl-2"></div>
+    <div class="col-6 col-sm-3 col-md-1 col-lg-1 col-xl-1">
+      <div class="column-container">
         <h5>Status</h5>
+        <button (click)="getOrderedIssues('status')" class="btn btn-primary">&#9650;&#9660;</button>
       </div>
-      <div class="col-6 col-sm-3 col-md-1 col-lg-1 col-xl-1">
+    </div>
+    <div class="col-6 col-sm-3 col-md-2 col-lg-2 col-xl-2">
+      <div class="column-container">
         <h5>Assign to</h5>
+        <button (click)="getOrderedIssues('assign')" class="btn btn-primary">&#9650;&#9660;</button>
       </div>
-      <div class="col-6 col-sm-3 col-md-1 col-lg-1 col-xl-1">
+    </div>
+    <div class="col-6 col-sm-3 col-md-1 col-lg-1 col-xl-1">
+      <div class="column-container">
         <h5>Created</h5>
+        <button (click)="getOrderedIssues('created_at')" class="btn btn-primary">&#9650;&#9660;</button>
       </div>
     </div>
   </div>
+</div>
 
   <hr style="border: none; height: 2px; background-color: #018AAA; margin: 20px;">
   
-  <div class="flex-container overflow-hidden d-flex align-items-center justify-content-center" style="margin: 20px;">
+  <div class="flex-container overflow-hidden" style="margin: 20px;">
     <div class="row text-center">
       <div class="col-12" *ngFor="let item of data">
         <div class="card" (click)="onCardClick(item)">
@@ -73,14 +169,14 @@
               <div class="col-6 col-sm-3 col-md-1 col-lg-1 col-xl-1">
                 <p><span [style.background-color]="getColorPriority(item.priority)" class="circle"></span></p>
               </div>
-              <div class="col-6 col-sm-3 col-md-1 col-lg-1 col-xl-1" style="color: blue; font-weight: bold; font-size: 18px;">
+              <div class="col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3" style="color: blue; font-weight: bold; font-size: 18px;">
                 <p>{{ item.subject }}</p>
               </div>
-              <div class="col-12 col-sm-0 col-md-5 col-lg-5 col-xl-5"></div>
+              <div class="col-12 col-sm-0 col-md-1 col-lg-1 col-xl-2"></div>
               <div class="col-6 col-sm-3 col-md-1 col-lg-1 col-xl-1">
                 <p>{{ item.status }}</p>
               </div>
-              <div class="col-6 col-sm-3 col-md-1 col-lg-1 col-xl-1">
+              <div class="col-6 col-sm-3 col-md-2 col-lg-2 col-xl-2">
                 <p>{{ item.assign }}</p>
               </div>
               <div class="col-6 col-sm-3 col-md-1 col-lg-1 col-xl-1">
@@ -92,3 +188,4 @@
       </div>
     </div>
   </div>
+</div>
