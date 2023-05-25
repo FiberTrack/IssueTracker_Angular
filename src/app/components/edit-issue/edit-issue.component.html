@@ -33,7 +33,7 @@
           </select>
         </div>
   
-        <button type="submit" [disabled]="!issueForm.valid">Update Issue</button>
+        <button class = "crear-issue" type="submit" [disabled]="!issueForm.valid">Update Issue</button>
         <a [routerLink]="'/issues/' + issue.id" class="volver">Back</a>
       </div>
   
@@ -86,5 +86,36 @@
       <div style="clear: both;"></div>
     </div>
   </form>
+
+
+  <div class="formulario">
+    <div class="columna-izquierda">
+      <div *ngIf="issue.id">
+        <form (submit)="uploadAttachment()" enctype="multipart/form-data">
+          <label for="file">Add Attachment</label>
+          <div class="container">
+            <input type="file" id="file" name="file" (change)="onFileSelected($event)" accept=".jpg,.jpeg,.png,.pdf" />
+            <button class = "crear-issue" type="submit" [disabled]="!selectedFile">Upload Attachment</button>
+          </div>
+        </form>
+      </div>
+      <label>Attachments:</label>
+    <div *ngIf="getAttachmentsLength() > 0">
+      <ul class="attachment-list">
+        <li *ngFor="let attachment of attachments">
+            <div class="container">
+          <a>{{ attachment.name }}</a>
+          <button class = "delete-button" (click)="deleteAttachment(attachment.id)"> Delete </button>
+        </div>
+        </li>
+      </ul>
+    </div>
+    </div>
+
+
+    
+  </div>
+
+  
   
   

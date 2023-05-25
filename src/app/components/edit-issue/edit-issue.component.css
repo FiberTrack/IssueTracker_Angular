@@ -11,6 +11,21 @@
     margin-right: 20px; /* Agrega un margen derecho para separar las dos columnas */
   }
 
+  .delete-button:hover {
+    background-color: #C62838;
+   }
+   
+   .delete-button {
+     background-color: #dc3545;
+     color: #fff;
+     border: none;
+     padding: 10px 20px;
+     font-size: 16px;
+     cursor: pointer;
+      margin-left: 10px;
+      border-radius: 5px;
+   }
+
   h2 {
     text-align: center;
     padding: 10px;
@@ -97,6 +112,15 @@
     justify-content: center;
     margin-top: 20px;
     padding: 10px;
+  }
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    width: 100%;
+    max-width: 100%;
   }
   
   .buttons-center a:first-child {
