@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 
 
 interface IssueData {
+  id: number;
   subject: string;
   description: string;
   assign: string | undefined;
@@ -35,6 +36,7 @@ interface Person {
 export class EditIssueComponent {
 
   issue: IssueData = {
+    id: 0,
     subject: '',
     description: '',
     assign: '',
@@ -46,6 +48,7 @@ export class EditIssueComponent {
     created_by: ''
   };
   usuaris: Person[] = [];
+
   constructor(private apiService: ApiService, private route: ActivatedRoute, private location: Location) { }
 
 
@@ -64,6 +67,7 @@ export class EditIssueComponent {
         issue => {
           this.issue = issue;
           console.log(this.issue);
+          this.issue.id = parseInt(issueId)
         },
         error => {
           console.log('Error al obtener la issue:', error);
