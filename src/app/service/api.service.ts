@@ -103,5 +103,13 @@ export class ApiService {
     return this.http.post<any>(apiUrl, formData, { headers }); // Realizar una solicitud POST a la URL de la API con el formulario FormData y el encabezado de autorización
   }
 
+  public deleteAttachment(attachmentId: number): Observable<any> {
+    const apiUrl = this.urlApi +'attachments/' + attachmentId; // URL de la API para añadir un archivo adjunto a un issue
+    const headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+      .set('Authorization', 'c019a94d-2c6d-46b9-ba10-f58cc0b1c969');
+    return this.http.delete<any>(apiUrl, { headers }); // Realizar una solicitud POST a la URL de la API con el formulario FormData y el encabezado de autorización
+  }
+
 }
 

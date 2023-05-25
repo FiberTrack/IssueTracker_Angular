@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 
 
+
 interface IssueData {
   id: number;
   subject: string;
@@ -48,6 +49,7 @@ export class EditIssueComponent {
     created_by: ''
   };
   usuaris: Person[] = [];
+  attachments: any[] = [];
 
   constructor(private apiService: ApiService, private route: ActivatedRoute, private location: Location) { }
 
@@ -57,6 +59,7 @@ export class EditIssueComponent {
     console.log("Inici fins aqui")
     this.getUsuaris()
     this.getIssueById()
+    this.getAttachments()
     // Inicializar cualquier otra lógica necesaria al iniciar el componente
   }
 
@@ -126,10 +129,48 @@ uploadAttachment() {
       response => {
         // Procesar la respuesta de éxito si es necesario
         console.log('Attachment uploaded successfully', response);
+       // Recargar la página actual
+    window.location.reload();
       },
       error => {
         // Procesar el error si es necesario
         console.error('Error uploading attachment', error);
+      }
+    );
+  }
+}
+
+
+getAttachments(): void {
+  const issueId = this.route.snapshot.paramMap.get('id');
+  if (issueId) {
+    this.apiService.getAttachmentsById(parseInt(issueId)).subscribe(
+      attachment => {
+        this.attachments = attachment;
+        console.log(this.attachments);
+      },
+      error => {
+        console.log('Error al obtener la issue:', error);
+      }
+    );
+  }
+}
+
+getAttachmentsLength(): number {
+  return this.attachments.length;
+}
+
+deleteAttachment(attachmentId: number){
+  if (attachmentId) {
+    this.apiService.deleteAttachment(attachmentId).subscribe(
+      response => {
+        
+        console.log("Attachment borrado", response);
+       // Recargar la página actual
+    window.location.reload();
+      },
+      error => {
+        console.log('Error al borrar el attachment:', error);
       }
     );
   }
