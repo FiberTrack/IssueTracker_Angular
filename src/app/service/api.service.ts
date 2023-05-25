@@ -111,5 +111,17 @@ export class ApiService {
     return this.http.delete<any>(apiUrl, { headers }); // Realizar una solicitud POST a la URL de la API con el formulario FormData y el encabezado de autorización
   }
 
+  public createMultipleIssues(subjects: string): Observable<any> {
+    const apiUrl = this.urlApi + 'issues/create_multiple';
+    const headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+      .set('Authorization', 'c019a94d-2c6d-46b9-ba10-f58cc0b1c969');
+    const requestData = {
+      subjects: subjects
+    };
+    return this.http.post<any>(apiUrl, requestData, { headers });
+  }
+
+  
 }
 
