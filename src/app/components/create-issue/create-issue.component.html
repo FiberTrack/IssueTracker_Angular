@@ -28,7 +28,7 @@
       <div>
         <label for="watcher_ids">Watched:</label>
         <select id="watcher_ids" name="watcher_ids" [(ngModel)]="issue.watcher_ids" multiple>
-          <option value="Not Assigned">Not assigned</option>
+          <option value="Not watched">Not watched</option>
           <option *ngFor="let user of usuaris" [value]="user.id">{{ user.full_name }}</option>
         </select>
       </div>

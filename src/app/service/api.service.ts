@@ -85,5 +85,13 @@ export class ApiService {
     return this.http.get<any[]>(apiUrl, { headers });
   }
 
+  public updateIssue(issueId: number, issueData: any): Observable<any> {
+    const apiUrl = this.urlApi + 'issues/' + issueId; // URL de la API para crear un issue
+    const headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+      .set('Authorization', 'c019a94d-2c6d-46b9-ba10-f58cc0b1c969');
+    return this.http.put<any>(apiUrl, issueData, { headers }); // Realizar una solicitud POST a la URL de la API con los datos del issue y el encabezado de autorización
+  }
+
 }
 
