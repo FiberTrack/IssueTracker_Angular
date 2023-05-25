@@ -8,16 +8,22 @@ import { Observable } from 'rxjs';
 })
 export class ApiService {
 
-
+  private authorizationToken: string = '';
   private urlApi = 'https://issuetrackerv1.herokuapp.com/'
   
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    const storedToken = localStorage.getItem('authorizationToken');
+  if (storedToken) {
+    this.authorizationToken = storedToken;
+  }
+  }
 
   public createIssue(issueData: any): Observable<any> {
     const apiUrl = this.urlApi + 'issues'; // URL de la API para crear un issue
     const headers = new HttpHeaders()
       .set('Accept', 'application/json')
-      .set('Authorization', 'c019a94d-2c6d-46b9-ba10-f58cc0b1c969');
+      .set('Authorization', this.authorizationToken);
+      console.log(this.authorizationToken)
     return this.http.post<any>(apiUrl, issueData, { headers }); // Realizar una solicitud POST a la URL de la API con los datos del issue y el encabezado de autorización
   }
   
@@ -89,7 +95,7 @@ export class ApiService {
     const apiUrl = this.urlApi + 'issues/' + issueId; // URL de la API para crear un issue
     const headers = new HttpHeaders()
       .set('Accept', 'application/json')
-      .set('Authorization', 'c019a94d-2c6d-46b9-ba10-f58cc0b1c969');
+      .set('Authorization', this.authorizationToken);
     return this.http.put<any>(apiUrl, issueData, { headers }); // Realizar una solicitud POST a la URL de la API con los datos del issue y el encabezado de autorización
   }
 
@@ -99,7 +105,7 @@ export class ApiService {
     formData.append('file', file); // Añadir el archivo al formulario FormData
     const headers = new HttpHeaders()
       .set('Accept', 'application/json')
-      .set('Authorization', 'c019a94d-2c6d-46b9-ba10-f58cc0b1c969');
+      .set('Authorization', this.authorizationToken);
     return this.http.post<any>(apiUrl, formData, { headers }); // Realizar una solicitud POST a la URL de la API con el formulario FormData y el encabezado de autorización
   }
 
@@ -107,9 +113,26 @@ export class ApiService {
     const apiUrl = this.urlApi +'attachments/' + attachmentId; // URL de la API para añadir un archivo adjunto a un issue
     const headers = new HttpHeaders()
       .set('Accept', 'application/json')
-      .set('Authorization', 'c019a94d-2c6d-46b9-ba10-f58cc0b1c969');
+      .set('Authorization', this.authorizationToken);
     return this.http.delete<any>(apiUrl, { headers }); // Realizar una solicitud POST a la URL de la API con el formulario FormData y el encabezado de autorización
   }
+
+  public createMultipleIssues(subjects: string): Observable<any> {
+    const apiUrl = this.urlApi + 'issues/create_multiple';
+    const headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+      .set('Authorization', this.authorizationToken);
+    const requestData = {
+      subjects: subjects
+    };
+    return this.http.post<any>(apiUrl, requestData, { headers });
+  }
+
+  public setAuthorizationToken(token: string): void {
+    this.authorizationToken = token;
+    localStorage.setItem('authorizationToken', token);
+  }
+
 
 }
 

@@ -180,6 +180,9 @@ export class HomeComponent implements OnInit {
 
   onUserChange(event: any) {
     this.usuari_actual = event?.target?.value - 1;
+    var authorizationToken = this.usuaris[this.usuari_actual].api_key;
+    console.log(authorizationToken);
+    this.apiService.setAuthorizationToken(authorizationToken);
   }
 }
 
