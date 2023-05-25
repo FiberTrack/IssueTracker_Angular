@@ -111,4 +111,30 @@ export class EditIssueComponent {
   }
   }
 
+
+
+  selectedFile: File | null = null;
+
+onFileSelected(event: any) {
+  this.selectedFile = event.target.files[0];
+}
+
+uploadAttachment() {
+  if (this.selectedFile) {
+    // Llamada a tu función para enviar el archivo adjunto
+    this.apiService.addAttachment(this.issue.id, this.selectedFile).subscribe(
+      response => {
+        // Procesar la respuesta de éxito si es necesario
+        console.log('Attachment uploaded successfully', response);
+      },
+      error => {
+        // Procesar el error si es necesario
+        console.error('Error uploading attachment', error);
+      }
+    );
+  }
+}
+
+
+
 }
