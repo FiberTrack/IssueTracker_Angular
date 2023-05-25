@@ -36,7 +36,7 @@
             <div class="detail align-items-center">
               <h2 class="detail-title">Watched by</h2>
               <div *ngIf="data.watcher_ids && data.watcher_ids.length > 0; else noWatchers">
-                <p *ngFor="let watcherId of data.watcher_ids">{{ watcherId }}</p>
+                <p *ngFor="let watcherId of data.watcher_ids">{{  getFullName(watcherId) }}</p>
               </div>
               <ng-template #noWatchers>
                 <p>Not watched</p>
