@@ -91,6 +91,12 @@ export class ApiService {
     return this.http.get<any[]>(apiUrl, { headers });
   }
 
+  public getUserById(userId: number): Observable<any> {
+    const apiUrl = this.urlApi + 'users/' + userId;
+    const headers = new HttpHeaders().set('Accept', 'application/json');
+    return this.http.get<any>(apiUrl, { headers });
+  }
+
   public updateIssue(issueId: number, issueData: any): Observable<any> {
     const apiUrl = this.urlApi + 'issues/' + issueId; // URL de la API para crear un issue
     const headers = new HttpHeaders()

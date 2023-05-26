@@ -1,0 +1,39 @@
+<div class="fondo-imagen">
+<div class="user-info-box">
+  <div class="user-photo">
+    <img [src]="data.avatar_url" class="rounded-image" />
+  </div>
+  <div class="user-info">
+    <h2 class="user-name">{{ data.full_name }}</h2>
+    <p class="user-email">{{ data.email }}</p>
+    <p class="user-bio">{{ data.bio }}</p>
+    <p class="user-api-key">{{ data.api_key }}</p>
+  </div>
+<!--
+  <div class="list-grid">
+    <div class="item2">
+      <h3 class="list-title">Activities</h3>
+      <div class="list-container">
+        <ul class="list-items">
+          <li *ngFor="let activity of data.user.activities">
+            {{ activity.user.full_name }} {{ activity.action }} the issue
+            <a [href]="'issue/' + activity.issue.id">{{ activity.issue.subject }}</a>
+            on {{ activity.created_at | date:'hh:mm a dd MMMM yyyy' }}.
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="item1">
+      <h3 class="list-title">Watched</h3>
+      <div class="list-container2">
+        <ul class="list-items">
+          <li *ngFor="let iswatch of data.user.issue_watchers">
+            <a [href]="'issue/' + iswatch.issue.id">{{ iswatch.issue.subject }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+-->
