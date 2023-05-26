@@ -1,0 +1,23 @@
+<div class="fondo-imagen">
+<br>
+    <div class="center-content">
+      <h1>Edit Account</h1>
+    </div>
+<br>
+
+<div class="formulario-center">
+  <form (ngSubmit)="updateProfile(userForm)" #userForm="ngForm" enctype="multipart/form-data">
+    <label for="bio">Update bio</label>
+    <input type="text" id="bio" [(ngModel)]="bio" name="bio">
+
+    <label for="avatar">Upload profile photo</label>
+    <input type="file" id="avatar" [(ngModel)]="avatarFile" name="avatar">
+    <!--    <input type="file" id="avatar" name="avatar" (change)="onFileSelected($event)" accept=".jpg,.jpeg,.png" /> -->
+
+    <div class="buttons-center">
+      <a href="/issues" class="volver">Back</a>
+      <button type="submit" class="crear-issue">Save</button>
+    </div>
+  </form>
+</div>
+

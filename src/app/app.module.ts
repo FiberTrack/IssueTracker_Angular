@@ -11,6 +11,7 @@ import { CreateIssueComponent } from './components/create-issue/create-issue.com
 import { EditIssueComponent } from './components/edit-issue/edit-issue.component';
 import { BulkInsertComponent } from './components/bulk-insert/bulk-insert.component';
 import { InfoUserComponent } from './components/info-user/info-user.component';
+import { EditUserComponent } from './components/edit-user/edit-user.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { InfoUserComponent } from './components/info-user/info-user.component';
     EditIssueComponent,
     BulkInsertComponent,
     InfoUserComponent,
+    EditUserComponent
   ],
   imports: [
     BrowserModule,
