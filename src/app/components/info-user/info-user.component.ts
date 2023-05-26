@@ -12,7 +12,6 @@ export class InfoUserComponent {
 
 //data
   data: any = {};
-  prova = "klk"
   usuariId = 0
 
   constructor(private apiService: ApiService, private route: ActivatedRoute, private location: Location) { }
