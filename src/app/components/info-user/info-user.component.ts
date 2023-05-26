@@ -12,6 +12,8 @@ export class InfoUserComponent {
 
 //data
   data: any = {};
+  activities: any = {};
+  watched: any = {};
   usuariId = 0
 
   constructor(private apiService: ApiService, private route: ActivatedRoute, private location: Location) { }
@@ -21,7 +23,10 @@ export class InfoUserComponent {
     this.usuariId = this.route.snapshot.params['usuari_id'];
     console.log(this.usuariId); // Use the parameter as required
 
-    this.getUserById(); 
+    this.getUserById();
+    this.getActivitiesByUserId();
+    this.getWatchedByUserId();
+
 
   }
 
@@ -40,6 +45,40 @@ export class InfoUserComponent {
     }
 
   }
+
+  getActivitiesByUserId(): void {
+    const userId = this.route.snapshot.params['usuari_id'];
+    if (userId) {
+      this.apiService.getActivitiesByUserId(parseInt(userId)).subscribe(
+        activity => {
+          this.activities = activity;
+          console.log(this.activities);
+        },  
+        error => {
+          console.log('Error al obtenir Usuari: ', error);
+        }
+      );
+    }
+
+  }
+
+
+  getWatchedByUserId(): void {
+    const userId = this.route.snapshot.params['usuari_id'];
+    if (userId) {
+      this.apiService.getWatchedByUserId(parseInt(userId)).subscribe(
+        watch => {
+          this.watched = watch;
+          console.log(this.watched);
+        },  
+        error => {
+          console.log('Error al obtenir watched de Usuari: ', error);
+        }
+      );
+    }
+
+  }
+
 /*
   getIssueById(): void {
     const issueId = this.route.snapshot.paramMap.get('id');
