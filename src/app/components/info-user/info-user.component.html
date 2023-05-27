@@ -15,9 +15,9 @@
       <h3 class="list-title">Activities</h3>
       <div class="list-container">
         <ul class="list-items">
-          <li *ngFor="let activity of activities">
+          <li *ngFor="let activity of activities; let i=index">
             {{ data.full_name }} {{ activity.action }} the issue
-            <a [href]="'issues/' + activity.issue_id">{{ activity.issue_id }}</a>
+            <a [href]="'issues/' + activity.issue_id">{{ getSubjectActivity(activity.issue_id) }}</a>
             on {{ activity.created_at | date:'hh:mm a dd MMMM yyyy' }}.
           </li>
         </ul>
@@ -28,8 +28,8 @@
       <h3 class="list-title">Watched</h3>
       <div class="list-container2">
         <ul class="list-items">
-          <li *ngFor="let iswatch of watched">
-            <a [href]="'issues/' + iswatch.issue_id">{{ iswatch.issue_id }}</a>
+          <li *ngFor="let iswatch of watched; let i=index">
+            <a [href]="'issues/' + iswatch.issue_id">{{ getSubjectWatcher(iswatch.issue_id) }}</a>
           </li>
         </ul>
       </div>

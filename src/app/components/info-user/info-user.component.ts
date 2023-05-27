@@ -12,9 +12,12 @@ export class InfoUserComponent {
 
 //data
   data: any = {};
-  activities: any = {};
-  watched: any = {};
+  issue: any = {};
+  activities: any[] = [];
+  watched: any[] = [];
   usuariId = 0
+  name_issues_activities: any[][] = [];
+  name_issues_watched: any[][] = [];
 
   constructor(private apiService: ApiService, private route: ActivatedRoute, private location: Location) { }
 
@@ -26,8 +29,6 @@ export class InfoUserComponent {
     this.getUserById();
     this.getActivitiesByUserId();
     this.getWatchedByUserId();
-
-
   }
 
   getUserById(): void {
@@ -46,6 +47,30 @@ export class InfoUserComponent {
 
   }
 
+  getSubjectIssues(id_issue: number): void {
+        this.apiService.getIssueById(id_issue).subscribe(
+          issue => {
+            this.name_issues_activities.push([id_issue,issue.subject]);
+          },
+          error => {
+            console.log('Error al obtener la issue:', error);
+          }
+        );
+    console.log(this.name_issues_activities);
+  }
+
+  getSubjectIssues2(id_issue: number): void {
+    this.apiService.getIssueById(id_issue).subscribe(
+      issue => {
+        this.name_issues_watched.push([id_issue,issue.subject]);
+      },
+      error => {
+        console.log('Error al obtener la issue:', error);
+      }
+    );
+  console.log(this.name_issues_watched);
+}
+
   getActivitiesByUserId(): void {
     const userId = this.route.snapshot.params['usuari_id'];
     if (userId) {
@@ -53,13 +78,17 @@ export class InfoUserComponent {
         activity => {
           this.activities = activity;
           console.log(this.activities);
+
+          for (const activity of this.activities) {
+            this.getSubjectIssues(activity.issue_id);
+          }
+
         },  
         error => {
           console.log('Error al obtenir Usuari: ', error);
         }
       );
     }
-
   }
 
 
@@ -70,52 +99,33 @@ export class InfoUserComponent {
         watch => {
           this.watched = watch;
           console.log(this.watched);
+
+          for (const watch of this.watched) {
+            this.getSubjectIssues2(watch.issue_id);
+          }
+
         },  
         error => {
           console.log('Error al obtenir watched de Usuari: ', error);
         }
       );
     }
-
   }
 
-/*
-  getIssueById(): void {
-    const issueId = this.route.snapshot.paramMap.get('id');
-    if (issueId) {
-      this.apiService.getIssueById(parseInt(issueId)).subscribe(
-        issue => {
-          this.data = issue;
-          console.log(this.data);
-        },
-        error => {
-          console.log('Error al obtener la issue:', error);
-        }
-      );
+  getSubjectActivity(id: number): string | undefined {
+    const matchingItem = this.name_issues_activities.find(item => item[0] === id);
+    if (matchingItem) {
+      return matchingItem[1];
     }
+    return undefined;
   }
 
-
-
-
-
-  getUsuaris(){
-    this.apiService.getUsuaris().subscribe(usuaris => {
-      this.usuaris = usuaris;
-  
-      // Verificar si todos los usuarios tienen la propiedad 'id'
-      const usuariosConID = this.usuaris.every(user => user.hasOwnProperty('id'));
-      if (!usuariosConID) {
-        console.error('Algunos usuarios no tienen la propiedad "id".');
-        return;
-      }
-  
-      this.usuaris.sort((a, b) => a.id - b.id); // Ordenar los usuarios por su ID
-      console.log(this.usuaris);
-    });
+  getSubjectWatcher(id: number): string | undefined {
+    const matchingItem = this.name_issues_watched.find(item => item[0] === id);
+    if (matchingItem) {
+      return matchingItem[1];
+    }
+    return undefined;
   }
-  */
-
-
 
 }
