@@ -178,3 +178,7 @@
     background-size: cover;
     background-repeat: no-repeat;
   }
+
+  .card.blocked {
+    background-color:#ffdfd4;
+  }
