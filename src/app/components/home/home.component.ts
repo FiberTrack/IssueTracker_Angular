@@ -28,15 +28,22 @@ export class HomeComponent implements OnInit {
   direction: string = 'asc';
   severities: string[] = ['Wishlist', 'Minor', 'Normal', 'Important', 'Critical'];
   types: string[] = ['Bug', 'Question', 'Enhancement'];
-  priorities: string[] = ['Low', 'Normal', 'High'];
+  priorities: string[] = ['Low', 'Normal ', 'High'];
   statuses: string[] = ['New', 'In Progress', 'Ready For Test', 'Postponed', 'Closed', 'Information Needed', 'Rejected'];
-  assigns: string[] = ['Abel Batalla', 'Abdelrahim Chelh El Azzaoui', 'Arnau Gracia', 'Gabriel Del Valle'];
+  assigns: string[] = [];
   filtroValue: string = "";
   showFilters: boolean = false;
   filtroBusqueda: boolean = false;
   filtroFiltros: boolean = false;
   usuaris: Person[] = [];
   usuari_actual = 0;
+  selectedOptions: any = {
+    severities: [],
+    types: [],
+    priorities: [],
+    statuses: [],
+    assigns: []
+  };
 
   constructor(private apiService: ApiService, private location: Location) { }
 
@@ -50,6 +57,7 @@ export class HomeComponent implements OnInit {
       }
     });
     this.filtroBusqueda = false;
+    this.filtroFiltros = false;
     this.getUsuaris();
   }
 
@@ -66,6 +74,11 @@ export class HomeComponent implements OnInit {
   
       this.usuaris.sort((a, b) => a.id - b.id); // Ordenar los usuarios por su ID
       console.log(this.usuaris);
+
+      for (let i = 0; i < this.usuaris.length; i++) {
+        const nom_usuario = this.usuaris[i].full_name;
+        this.assigns.push(nom_usuario)
+      }
     });
   }
 
@@ -85,6 +98,12 @@ export class HomeComponent implements OnInit {
         console.log(this.data);
       });
     }
+    else if(this.filtroFiltros) {
+      this.apiService.getOrderedFilteredIssues(this.direction, orderBy, this.selectedOptions).subscribe(data => {
+        this.data = data;
+        console.log(this.data);
+      });
+    }
     else this.apiService.getOrderedIssues(this.direction, orderBy).subscribe(data => {
       this.data = data;
       console.log(this.data);
@@ -92,6 +111,7 @@ export class HomeComponent implements OnInit {
   }
 
   getBusquedaIssue(busqueda: string) {
+    this.filtroFiltros = false;
     this.filtroBusqueda = true;
     this.apiService.getBusquedaIssue(busqueda).subscribe(data => {
       this.data = data;
@@ -184,6 +204,42 @@ export class HomeComponent implements OnInit {
     console.log(authorizationToken);
     this.apiService.setAuthorizationToken(authorizationToken);
   }
+
+  applyFilters() {
+    
+    this.filtroBusqueda = false;
+    this.filtroFiltros = true;
+
+    this.apiService.getFilteredIssues(this.selectedOptions).subscribe(data => {
+      this.data = data;
+      console.log(this.data);
+    });
+
+  }
+
+
+  toggleSeverity(tipo: string) {
+    let tipo2: string;
+    tipo2 = "";
+    if (tipo == 'Wishlist' || tipo == 'Minor' || tipo == 'Normal'  || tipo ==  'Important' || tipo == 'Critical') tipo2 = 'severities';
+    if (tipo == 'Bug' || tipo == 'Question' || tipo == 'Enhancement') tipo2 = 'types';
+    if (tipo == 'Low' || tipo == 'Normal ' || tipo == 'High') {
+      tipo2 = 'priorities';
+      tipo = 'Normal'
+    }
+    if (tipo == 'New' || tipo == 'In Progress' || tipo == 'Ready For Test' || tipo == 'Postponed' || tipo == 'Closed' || tipo == 'Information Needed' || tipo == 'Rejected') tipo2 = 'statuses';
+    if (this.assigns.includes(tipo)) tipo2 = 'assigns';
+    const index = this.selectedOptions[tipo2].indexOf(tipo);
+  
+    if (index === -1) {
+      // El valor no está en el array, lo agregamos
+      this.selectedOptions[tipo2].push(tipo);
+    } else {
+      // El valor ya está en el array, lo eliminamos
+      this.selectedOptions[tipo2].splice(index, 1);
+    }
+  }
+
 }
 
 
