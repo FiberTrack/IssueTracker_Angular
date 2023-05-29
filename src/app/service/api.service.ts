@@ -43,6 +43,99 @@ export class ApiService {
     return this.http.get<any[]>(apiUrl, { headers, params });
   }
 
+  public getOrderedFilteredIssues(direction: string, orderBy: string,selectedOptions: any): Observable<any[]> {
+    let entro = 0;
+    const apiUrl = this.urlApi + 'issues';
+    const headers = new HttpHeaders().set('Accept', 'application/json');
+    let params = new HttpParams();
+    params = params.set('direction', direction);
+    params = params.set('order_by', orderBy);
+    if (selectedOptions.severities && selectedOptions.severities.length > 0) {
+      selectedOptions.severities.forEach((severity: string) => {
+        entro = 1;
+        params = params.append('severity[]', severity);
+      });
+    }
+    if (selectedOptions.types && selectedOptions.types.length > 0) {
+      selectedOptions.types.forEach((type: string) => {
+        entro = 1;
+        params = params.append('type[]', type);
+      });
+    }
+    if (selectedOptions.priorities && selectedOptions.priorities.length > 0) {
+      selectedOptions.priorities.forEach((priority: string) => {
+        entro = 1;
+        params = params.append('priority[]', priority);
+      });
+    }
+    if (selectedOptions.statuses && selectedOptions.statuses.length > 0) {
+      selectedOptions.statuses.forEach((status: string) => {
+        entro = 1;
+        params = params.append('status[]', status);
+      });
+    }
+    if (selectedOptions.assigns && selectedOptions.assigns.length > 0) {
+      selectedOptions.assigns.forEach((assign: string) => {
+        entro = 1;
+        params = params.append('assign[]', assign);
+      });
+    }
+
+    if (entro == 1){
+      params = params.append('options[]', 'Wishlist');
+      params = params.append('commit', 'Filter');
+    }
+    
+
+    return this.http.get<any[]>(apiUrl, { headers, params });
+  }
+
+  public getFilteredIssues(selectedOptions: any): Observable<any[]> {
+    let entro = 0;
+    const apiUrl = this.urlApi + 'issues';
+    const headers = new HttpHeaders().set('Accept', 'application/json');
+    let params = new HttpParams();
+
+    if (selectedOptions.severities && selectedOptions.severities.length > 0) {
+      selectedOptions.severities.forEach((severity: string) => {
+        entro = 1;
+        params = params.append('severity[]', severity);
+      });
+    }
+    if (selectedOptions.types && selectedOptions.types.length > 0) {
+      selectedOptions.types.forEach((type: string) => {
+        entro = 1;
+        params = params.append('type[]', type);
+      });
+    }
+    if (selectedOptions.priorities && selectedOptions.priorities.length > 0) {
+      selectedOptions.priorities.forEach((priority: string) => {
+        entro = 1;
+        params = params.append('priority[]', priority);
+      });
+    }
+    if (selectedOptions.statuses && selectedOptions.statuses.length > 0) {
+      selectedOptions.statuses.forEach((status: string) => {
+        entro = 1;
+        params = params.append('status[]', status);
+      });
+    }
+    if (selectedOptions.assigns && selectedOptions.assigns.length > 0) {
+      selectedOptions.assigns.forEach((assign: string) => {
+        entro = 1;
+        params = params.append('assign[]', assign);
+      });
+    }
+
+    if (entro == 1){
+      params = params.append('options[]', 'Wishlist');
+      params = params.append('commit', 'Filter');
+    }
+    
+
+    return this.http.get<any[]>(apiUrl, { headers, params });
+  }
+
   public getOrderedIssuesBusqueda(direction: string, orderBy: string,busqueda: string ): Observable<any[]> {
     const apiUrl = this.urlApi + 'issues';
     const headers = new HttpHeaders().set('Accept', 'application/json');
