@@ -1,9 +1,16 @@
 <body>
-<div class="fondo-imagen">
-<div class="container issue-info" style="margin-top: 3%; display: flex; align-items: center;">
+<div class="fondo-imagen">´
+
+  <div class="container issue-info" style="margin-top: 3%; display: flex; align-items: center;">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
     <div *ngIf="data.blocked" class="blocked-message">🔒 Blocked</div>
     <div *ngIf="data.deadline" class="deadline-message">⌚ Due date: {{ data.deadline | date:'dd/MM/yyyy' }}</div>
-  
+  </div>
+  </div>
+
+
+<div class="container issue-info" style="display: flex; align-items: center;">
+ 
     <div class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 vertical-divider">
       <div class="col-12">
         <h1 class="title">{{ data.subject }}</h1>
@@ -88,7 +95,14 @@
           <div *ngIf="data.deadline" class="elements-in-row">
             <form (ngSubmit)="deleteDeadline()" class="deadline-form">
               <div class="detail-value-container">
-                <button type="submit" class="deadline-button col-3 col-sm-3 col-md-1 col-lg-2 col-xl-2">⌚</button>
+                <button type="submit" style="background-color: #f5f6ab;
+                color: #fff;
+                border: none;
+                padding: 10px 20px;
+                font-size: 16px;
+                cursor: pointer;
+                 margin-left: 10px;
+                 border-radius: 5px;" class="deadline-button col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">⌚</button>
               </div>
             </form>
           </div>

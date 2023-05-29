@@ -212,6 +212,19 @@ export class InfoIssueComponent {
   }
 
   toggleBlocked(): void {
+    this.apiService.BlockUnblockIssue(this.data.id).subscribe(
+      () => {
+        console.log(this.data.blocked);
+        this.data.blocked = !this.data.blocked; // Actualiza el estado de bloqueo/desbloqueo en los datos de la issue
+        console.log(this.data.blocked);
+
+      },
+      (error: any) => {
+        console.log(this.data.blocked);
+
+        console.error(error);
+      }
+    );
   }
 
   addDeadline(): void {

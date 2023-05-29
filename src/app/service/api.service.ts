@@ -146,6 +146,16 @@ export class ApiService {
     return this.http.post<any>(apiUrl, requestData, { headers });
   }
 
+  public BlockUnblockIssue(issueId: number): Observable<any> {
+    const headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+      .set('Authorization', this.authorizationToken);
+  
+    const url = this.urlApi + 'issues/' + issueId + '/block';
+    return this.http.post<any>(url, null, { headers });
+  }
+  
+
   public setAuthorizationToken(token: string): void {
     this.authorizationToken = token;
     localStorage.setItem('authorizationToken', token);
