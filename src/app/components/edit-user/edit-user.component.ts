@@ -15,8 +15,8 @@ export class EditUserComponent {
 
 
 //DATA
-  bio: string | undefined;
-  avatarFile: File | undefined;
+  bio: string = "";
+  avatar_url: File | undefined;
 
   constructor(private apiService: ApiService, private route: ActivatedRoute, private location: Location) { }
 
@@ -31,20 +31,20 @@ export class EditUserComponent {
     // You can make an API call to update the profile information
     
     const formData = new FormData();
-    formData.append('bio', userForm.value.bio);
     
-
     console.log("User Data: " + userForm)
-    console.log("bio: " + this.bio)
-    console.log("avatarFile: " + this.avatarFile)
+    console.log("bio_nova: " + this.bio)
+    console.log("avatar_url: " + this.avatar_url)
 
-    if (this.avatarFile) {
-      formData.append('avatar', this.avatarFile);
+    if (userForm.value.bio != "") {
+      console.log("Actualitzant bio")
+      formData.append('bio', userForm.value.bio);
     }
 
-    if (!this.bio) {
-      console.log("bio: " + this.bio)
+    if (userForm.value.avatar_url) {
+      formData.append('avatar_url', userForm.value.avatar_url);
     }
+
     console.log("Form Data2: " + formData)
 //CAL FER COSES AMB el AWS
 //CAL NO CANVIAR EL PARAMETRES UNDEFINED
