@@ -6,6 +6,7 @@ import { CreateIssueComponent } from './components/create-issue/create-issue.com
 import { EditIssueComponent } from './components/edit-issue/edit-issue.component';
 import { BulkInsertComponent } from './components/bulk-insert/bulk-insert.component';
 import { InfoUserComponent } from './components/info-user/info-user.component';
+import { EditUserComponent } from './components/edit-user/edit-user.component';
 
 
 const routes: Routes = [
@@ -15,7 +16,9 @@ const routes: Routes = [
   { path: 'create-issue', component: CreateIssueComponent },
   { path: 'update-issues/:id', component: EditIssueComponent },
   { path: 'bulk-insert', component: BulkInsertComponent },
-  { path: 'visualize_account/:usuari_id', component: InfoUserComponent }
+  { path: 'users/:usuari_id', component: InfoUserComponent },
+  { path: 'user', component: EditUserComponent }
+
 ];
 
 @NgModule({
