@@ -1,0 +1,177 @@
+body {
+	background-color: #ffffff;
+	font-family: Arial, Helvetica, sans-serif;
+	padding: 10px;
+	font-size: 12pt;
+}
+	h1 {
+		font-weight: bold;
+		font-size: 20pt;
+	}
+
+header {
+
+	background-color: #333;
+	height: 50px;
+	color: #fff;
+}
+
+.fondo-imagen {
+    width: 100%;
+    min-height: 100vh;
+    background-image: url(src/assets/images/Fondo.png);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+.barra-superior {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 100%;
+	padding: 10px;
+	flex-direction: row;
+}
+
+
+.rounded-image {
+
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  width: 100px;
+  height: 100px;
+
+}
+
+
+
+
+.user-info-box {
+  width: 70%;
+  height: auto;
+  margin: auto;
+  position: relative;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 0px 8px rgba(0, 56, 87, 0.765);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.list-container {
+  height: 200px;
+  overflow-y: scroll;
+  display: flex;
+  justify-content: space-between;
+}
+
+.list-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr;
+}
+
+.item1 {
+  justify-self: center;
+
+}
+
+.item2 {
+
+padding-left: 8px;
+}
+
+.user-photo {
+  width: 170px;
+  height: 170px;
+    overflow: hidden;
+  border-radius: 50%;
+  margin-bottom: 10px;
+    margin-top: 5px;
+
+}
+
+.user-photo img {
+    justify-self: center;
+
+  width: 100%;
+  height: 100%;
+    object-fit: cover;
+
+}
+
+.user-name {
+    justify-self: center;
+
+  font-size: 24px;
+  margin-top: 2px;
+}
+
+.user-info {
+  text-align: center;
+    justify-self: center;
+    width: 600px;
+}
+
+.user-email {
+  justify-self: center;
+  font-size: 16px;
+  margin: 0px;
+}
+
+.user-bio {
+    justify-self: center;
+
+  font-size: 14px;
+  margin: 10px 0;
+}
+
+.user-lists {
+  margin-top: 20px;
+}
+
+.list-title {
+  font-size: 18px;
+  margin-bottom: 10px;
+    margin-top: 10px;
+
+}
+
+.list-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.list-items li {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.edit-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #204970;
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 50%;
+  text-decoration: none;
+}
+
+.edit-button i {
+  font-size: 30px;
+}
+
+
+
+
+/* Font Awesome Pencil Icon */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css");

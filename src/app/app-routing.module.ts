@@ -7,6 +7,8 @@ import { EditIssueComponent } from './components/edit-issue/edit-issue.component
 import { BulkInsertComponent } from './components/bulk-insert/bulk-insert.component';
 import { InfoUserComponent } from './components/info-user/info-user.component';
 import { EditUserComponent } from './components/edit-user/edit-user.component';
+import { ViewUserComponent } from './components/view-user/view-user.component';
+
 
 
 const routes: Routes = [
@@ -17,7 +19,9 @@ const routes: Routes = [
   { path: 'update-issues/:id', component: EditIssueComponent },
   { path: 'bulk-insert', component: BulkInsertComponent },
   { path: 'users/:usuari_id', component: InfoUserComponent },
-  { path: 'user', component: EditUserComponent }
+  { path: 'user', component: EditUserComponent },
+  { path: 'info/:usuari_id', component: ViewUserComponent}
+
 
 ];
 

@@ -12,6 +12,7 @@ import { EditIssueComponent } from './components/edit-issue/edit-issue.component
 import { BulkInsertComponent } from './components/bulk-insert/bulk-insert.component';
 import { InfoUserComponent } from './components/info-user/info-user.component';
 import { EditUserComponent } from './components/edit-user/edit-user.component';
+import { ViewUserComponent } from './components/view-user/view-user.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { EditUserComponent } from './components/edit-user/edit-user.component';
     EditIssueComponent,
     BulkInsertComponent,
     InfoUserComponent,
-    EditUserComponent
+    EditUserComponent,
+    ViewUserComponent
   ],
   imports: [
     BrowserModule,
