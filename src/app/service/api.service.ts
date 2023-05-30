@@ -255,6 +255,18 @@ export class ApiService {
     const url = this.urlApi + 'issues/' + issueId + '/block';
     return this.http.post<any>(url, null, { headers });
   }
+
+  public AddComments(issueId: number, content: String): Observable<any> {
+    console.log("Entra en la función")
+    const headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+      .set('Authorization', this.authorizationToken);
+    const requestData = {
+      content: content
+    };
+    const url = this.urlApi + 'issues/' + issueId + '/comments/new'; 
+    return this.http.post<any>(url, requestData, { headers });
+  }
   
 
   public setAuthorizationToken(token: string): void {

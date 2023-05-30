@@ -193,13 +193,26 @@
   </div>
     <div class="container issue-info" style="margin-bottom: 3%;">
         <div class="col-12">
+          <h2>Attachments:</h2>
+            <div *ngIf="getAttachmentsLength() > 0">
+              <ul class="attachment-list">
+                <li *ngFor="let attachment of attachments">
+                  <a href="{{ attachment.url }}" target="_blank">{{ attachment.name }}</a>
+                </li>
+              </ul>
+            </div>
+            <div *ngIf="getAttachmentsLength() === 0">
+              <p>No attachments found.</p>
+            </div>
           <h2>Add comment:</h2>
-          <form>
+          <form >
             <p>
-              <textarea style="width: 100%;"></textarea>
+              <textarea  name="content" id="content" style="width: 100%;"></textarea>
             </p>
             <p>
-              <button type="submit">Create comment</button>
+              <button type="submit" (click) = "addComment()">Create comment</button>
+              
+
             </p>
           </form>
         
@@ -222,17 +235,7 @@
           <hr>
         </div>
             <div class="col-12">
-            <h2>Attachments:</h2>
-            <div *ngIf="getAttachmentsLength() > 0">
-              <ul class="attachment-list">
-                <li *ngFor="let attachment of attachments">
-                  <a href="{{ attachment.url }}" target="_blank">{{ attachment.name }}</a>
-                </li>
-              </ul>
-            </div>
-            <div *ngIf="getAttachmentsLength() === 0">
-              <p>No attachments found.</p>
-            </div>
+            
 
     </div>
         <div class="col-12">

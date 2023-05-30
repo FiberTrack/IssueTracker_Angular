@@ -233,7 +233,21 @@ export class InfoIssueComponent {
   deleteDeadline(): void {
   }
 
-  addComment(): void{
+  addComment(){
+    
+    const content = (document.getElementById('content') as HTMLTextAreaElement).value;
+    this.apiService.AddComments(this.data.id, content).subscribe(
+      (response: any) => {
+        // Manejar la respuesta exitosa de la API
+        this.comments.push(response)
+        console.log(response);
+        (document.getElementById('content') as HTMLTextAreaElement).value = '';
+      },
+      (error: any) => {
+        // Manejar el error de la API
+        console.error(error);
+      }
+    );
   }
 
   newComment(): void{
