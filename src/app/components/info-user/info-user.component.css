@@ -51,7 +51,7 @@ header {
   width: 70%;
   height: auto;
   margin: auto;
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
   bottom: 0;
@@ -154,3 +154,24 @@ padding-left: 8px;
   font-size: 14px;
   margin-bottom: 5px;
 }
+
+.edit-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #204970;
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 50%;
+  text-decoration: none;
+}
+
+.edit-button i {
+  font-size: 30px;
+}
+
+
+
+
+/* Font Awesome Pencil Icon */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css");

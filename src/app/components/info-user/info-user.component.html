@@ -1,38 +1,47 @@
-<div class="fondo-imagen">
-<div class="user-info-box">
-  <div class="user-photo">
-    <img [src]="data.avatar_url" class="rounded-image" />
-  </div>
-  <div class="user-info">
-    <h2 class="user-name">{{ data.full_name }}</h2>
-    <p class="user-email">{{ data.email }}</p>
-    <p class="user-bio">{{ data.bio }}</p>
-    <p class="user-api-key">{{ data.api_key }}</p>
-  </div>
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
+</head>
+<body>
+  <div class="fondo-imagen">
+    <div class="user-info-box">
+      <a [routerLink]="'/user'" id="editAccountLink" class="edit-button">
+        <i class="fas fa-pencil-alt"></i>
+      </a>
+      <div class="user-photo">
+        <img [src]="data.avatar_url" class="rounded-image" />
+      </div>
+      <div class="user-info">
+        <h2 class="user-name">{{ data.full_name }}</h2>
+        <p class="user-email">{{ data.email }}</p>
+        <p class="user-bio">{{ data.bio }}</p>
+        <p class="user-api-key">{{ data.api_key }}</p>
+      </div>
 
-  <div class="list-grid">
-    <div class="item2">
-      <h3 class="list-title">Activities</h3>
-      <div class="list-container">
-        <ul class="list-items">
-          <li *ngFor="let activity of activities; let i=index">
-            {{ data.full_name }} {{ activity.action }} the issue
-            <a [href]="'issues/' + activity.issue_id">{{ getSubjectActivity(activity.issue_id) }}</a>
-            on {{ activity.created_at | date:'hh:mm a dd MMMM yyyy' }}.
-          </li>
-        </ul>
+      <div class="list-grid">
+        <div class="item2">
+          <h3 class="list-title">Activities</h3>
+          <div class="list-container">
+            <ul class="list-items">
+              <li *ngFor="let activity of activities; let i=index">
+                {{ data.full_name }} {{ activity.action }} the issue
+                <a [href]="'issues/' + activity.issue_id">{{ getSubjectActivity(activity.issue_id) }}</a>
+                on {{ activity.created_at | date:'hh:mm a dd MMMM yyyy' }}.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="item1">
+          <h3 class="list-title">Watched</h3>
+          <div class="list-container2">
+            <ul class="list-items">
+              <li *ngFor="let iswatch of watched; let i=index">
+                <a [href]="'issues/' + iswatch.issue_id">{{ getSubjectWatcher(iswatch.issue_id) }}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
-
-    <div class="item1">
-      <h3 class="list-title">Watched</h3>
-      <div class="list-container2">
-        <ul class="list-items">
-          <li *ngFor="let iswatch of watched; let i=index">
-            <a [href]="'issues/' + iswatch.issue_id">{{ getSubjectWatcher(iswatch.issue_id) }}</a>
-          </li>
-        </ul>
-      </div>
-    </div>
   </div>
-</div>
+</body>
