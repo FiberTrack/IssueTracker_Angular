@@ -29,6 +29,7 @@ export class EditUserComponent {
   updateProfile(userForm: NgForm) {
     // Handle the form submission and update the profile
     // You can make an API call to update the profile information
+    
     const formData = new FormData();
     formData.append('bio', userForm.value.bio);
     
