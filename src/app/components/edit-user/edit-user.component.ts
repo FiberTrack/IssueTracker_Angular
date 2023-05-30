@@ -53,8 +53,8 @@ export class EditUserComponent {
       (response: any) => {
         // Manejar la respuesta exitosa de la API
         console.log('User updated: ', response);
-        //this.location.go(`/users/${response.id}`);
-        //window.location.href = this.location.path();
+        this.location.go(`/users/${response.id}`);
+        window.location.href = this.location.path();
       },
       (error: any) => {
         // Manejar el error de la API
