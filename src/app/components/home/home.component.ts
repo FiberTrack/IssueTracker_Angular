@@ -44,6 +44,7 @@ export class HomeComponent implements OnInit {
     statuses: [],
     assigns: []
   };
+  imageSize: Number = 150;
 
   constructor(private apiService: ApiService, private location: Location) { }
 
@@ -59,6 +60,11 @@ export class HomeComponent implements OnInit {
     this.filtroBusqueda = false;
     this.filtroFiltros = false;
     this.getUsuaris();
+    
+  }
+
+  getFilteredUsers(): Person[] {
+    return this.usuaris.filter(user => user.id-1 !== this.usuari_actual);
   }
 
   getUsuaris(){

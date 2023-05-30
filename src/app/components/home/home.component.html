@@ -194,4 +194,37 @@
       </div>
     </div>
   </div>
+
+<h1>Users</h1>
+<table>
+  <tbody>
+    <ng-container *ngFor="let user of getFilteredUsers()">
+      <tr>
+        <td class="col-12 col-md-2">
+          <div class="image-wrapper" [ngStyle]="{ 'width.px': imageSize, 'height.px': imageSize }">
+            <img src="{{ user.avatar_url }}" class="rounded-image img-fluid" style="width: 100%; height: 100%;">
+          </div>
+        </td>
+        <td class="col-12 col-md-10">
+          <a [href]="'visualize_account_path?usuari_id=' + user.id">{{ user.full_name }}</a><br>
+          {{ user.email }}<br><br>
+          {{ user.bio }}
+        </td>
+      </tr>
+    </ng-container>
+  </tbody>
+  
+  <style>
+    .image-wrapper {
+      position: relative;
+      overflow: hidden;
+    }
+  
+    .image-wrapper img {
+      object-fit: cover;
+    }
+  </style>
+  </table>
+  <br>
+
 </div>
