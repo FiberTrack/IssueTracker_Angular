@@ -124,6 +124,7 @@ onFileSelected(event: any) {
 
 uploadAttachment() {
   if (this.selectedFile) {
+    console.log("Aquest es url del file: " + this.selectedFile)
     // Llamada a tu función para enviar el archivo adjunto
     this.apiService.addAttachment(this.issue.id, this.selectedFile).subscribe(
       response => {

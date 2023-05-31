@@ -1,11 +1,18 @@
 <br>
-<h1>New insertion in group</h1>
+<h2 style= "color: #018AAA; font-size: 40px; font-weight: bold; margin: 20px;"> New insertion in group</h2>
 <br>
 
+<div class="col-4 col-sm-10 col-md-12 col-lg-12 col-xl-12 d-flex flex-column justify-content-start"></div>
 <div class="formulario">
   <form (submit)="bulkInsert()">
-    <textarea name="subjects" id="subjects" rows="15" cols="80" placeholder="Enter subjects (separated by line breaks)"></textarea>
+    <div class="row">
+      <div class="col-4 col-sm-10 col-md-12 col-lg-12 col-xl-12 d-flex flex-column justify-content-start">
+        <textarea name="subjects" id="subjects" rows="form-control" cols="80" placeholder="Enter subjects (separated by line breaks)"></textarea>
+      </div>
+    </div>
     <button type="submit" class="crear-issue">Create Issues</button>
     <a routerLink="/issues" class="volver">Back</a>
   </form>
 </div>
+
+

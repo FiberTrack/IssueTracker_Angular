@@ -1,15 +1,5 @@
-.formulario {
-    width: 800px; /* El doble del ancho original para acomodar ambas columnas */
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    background-color: white;
-    display: flex; /* Para usar flexbox */
-  }
-  .columna-izquierda {
-    width: 50%; /* La mitad del ancho total */
-    margin-right: 20px; /* Agrega un margen derecho para separar las dos columnas */
-  }
+
+ 
 
   .delete-button:hover {
     background-color: #C62838;
@@ -25,6 +15,36 @@
       margin-left: 10px;
       border-radius: 5px;
    }
+    
+   .spaced-right{
+    margin-right: 10px; /* Ajusta el valor según la separación deseada */
+  }
+   .spaced {
+    margin-top: 10px; /* Ajusta el valor según la separación deseada */
+  }
+  
+  
+ 
+
+
+
+
+/*-----------------------------------------*/
+
+
+
+  .formulario {
+    width: 800px; /* El doble del ancho original para acomodar ambas columnas */
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: white;
+    display: flex; /* Para usar flexbox */
+  }
+  .columna-izquierda {
+    width: 50%; /* La mitad del ancho total */
+    margin-right: 20px; /* Agrega un margen derecho para separar las dos columnas */
+  }
 
   h2 {
     text-align: center;
@@ -113,16 +133,8 @@
     margin-top: 20px;
     padding: 10px;
   }
-
-  .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 50px;
-    width: 100%;
-    max-width: 100%;
-  }
   
   .buttons-center a:first-child {
     margin-right: 10px;
   }
+  
