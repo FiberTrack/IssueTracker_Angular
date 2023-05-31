@@ -32,6 +32,7 @@ export class InfoIssueComponent {
   usuaris: Person[] = [];
   today: Date = new Date();
   deadlineDate: string = "";
+  dateError: string = '';
 
   constructor(private apiService: ApiService, private route: ActivatedRoute, private location: Location) { }
 
@@ -242,9 +243,32 @@ export class InfoIssueComponent {
   }
 
   addDeadline(): void {
+    console.log("Fecha deadline " + this.deadlineDate);
+    
+    if(this.checkDeadlineDate()){
+      this.apiService.addDeleteDeadline(this.data.id, this.deadlineDate).subscribe(
+        () => {
+           console.log("Fecha deadline: " + this.deadlineDate + " añadida");
+           this.data.deadline = this.deadlineDate
+        },
+        (error: any) => {
+          console.error(error);
+        }
+      );
+    }
   }
 
   deleteDeadline(): void {
+    console.log("Eliminando deadline ");
+    this.apiService.addDeleteDeadline(this.data.id, "").subscribe(
+      () => {
+        console.log("Fecha deadline eliminada correctamente ");
+        this.data.deadline = ""
+      },
+      (error: any) => {
+        console.error(error);
+      }
+    );
   }
 
   addComment(){
@@ -264,8 +288,20 @@ export class InfoIssueComponent {
     );
   }
 
-  newComment(): void{
+  checkDeadlineDate(): Boolean {
+    const today = new Date();
+    const selectedDate = new Date(this.deadlineDate);
+  
+    if (selectedDate < today) {
+      this.dateError = 'The selected date cannot be before ' + today;
+      return false
+    } else {
+      this.dateError = ''; // Limpiar el mensaje de error si la fecha es válida
+      // Continuar con la lógica de envío de datos o cualquier otra acción que desees realizar
+      return true
+    }
   }
 
 }
+
 

@@ -282,6 +282,17 @@ export class ApiService {
     return this.http.delete<any>(apiUrl, { headers });
   }
 
+  public addDeleteDeadline(issueId: number, deadlineDate: string): Observable<any> {
+    const apiUrl = this.urlApi + 'issues/' + issueId + "/deadline";
+    const headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+      .set('Authorization', this.authorizationToken);
+      const requestData = {
+        deadline_date: deadlineDate
+      };
+    return this.http.post<any>(apiUrl, requestData, { headers });
+  }
+
 
 
 }
