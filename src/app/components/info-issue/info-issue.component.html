@@ -5,11 +5,13 @@
     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
     <div *ngIf="data.blocked" class="blocked-message">🔒 Blocked</div>
     <div *ngIf="data.deadline" class="deadline-message">⌚ Due date: {{ data.deadline | date:'dd/MM/yyyy' }}</div>
+    <p style="color: red;">{{ dateError }}</p>
   </div>
   </div>
 
 
 <div class="container issue-info" style="display: flex; align-items: center;">
+  
  
     <div class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 vertical-divider">
       <div class="col-12">
