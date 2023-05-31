@@ -17,7 +17,7 @@ export class EditUserComponent {
 //DATA
   bio: string = "";
   full_name: string = "";
-  avatar_url: File | undefined;
+  avatar_url: File | null = null;
 
   constructor(private apiService: ApiService, private route: ActivatedRoute, private location: Location) { }
 
@@ -48,8 +48,9 @@ export class EditUserComponent {
       formData.append('bio', userForm.value.bio);
     }
 
-    if (userForm.value.avatar_url) {
-      formData.append('avatar_url', userForm.value.avatar_url);
+    if (this.avatar_url) {
+      console.log("Aquest es el avatar_url: " + this.avatar_url)
+      formData.append('avatar_url', this.avatar_url);
     }
 
     console.log("Form Data2: " + formData)
@@ -71,14 +72,11 @@ export class EditUserComponent {
   }
 
 
-  selectedFile: File | null = null;
-
-  onFileSelected(event: Event): void {
-    const target = event.target as HTMLInputElement;
-    if (target.files && target.files.length) {
-      this.selectedFile = target.files[0];
-    }
+  onFileSelected(event: any) {
+    this.avatar_url = event.target.files[0];
   }
+
+
 
 
 

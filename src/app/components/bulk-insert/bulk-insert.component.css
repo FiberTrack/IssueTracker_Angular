@@ -102,3 +102,24 @@
   .buttons-center a:first-child {
     margin-right: 10px;
   }
+
+
+  /* Estilo base del textarea */
+textarea {
+  resize: vertical;
+  height: 100px; /* Altura inicial para pantallas pequeñas */
+}
+
+/* Estilo para pantallas medianas y más grandes */
+@media (min-width: 768px) {
+  textarea {
+    height: 150px; /* Altura para pantallas medianas y más grandes */
+  }
+}
+
+/* Estilo para pantallas grandes */
+@media (min-width: 992px) {
+  textarea {
+    height: 200px; /* Altura para pantallas grandes */
+  }
+}

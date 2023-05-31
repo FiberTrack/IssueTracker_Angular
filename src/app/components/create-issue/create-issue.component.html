@@ -1,89 +1,90 @@
 <form (ngSubmit)="createIssue(issueForm.value)" #issueForm="ngForm">
-  <h2 style= "color: #018AAA; font-size: 40px; font-weight: bold; margin: 20px;"> New Issue</h2>
-  <br>
+  <h2  style ="color: #018AAA; font-size: 40px; font-weight: bold; margin: 20px;" class="text-primary text-center mb-4">New Issue</h2>
 
-  <div class="formulario">
-    <div class="columna-izquierda">
-      <div>
-        <label for="subject">Subject:</label>
-        <input type="text" id="subject" name="subject" [(ngModel)]="issue.subject" required>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="subject">Subject:</label>
+          <input type="text" id="subject" name="subject" [(ngModel)]="issue.subject" required class="form-control">
+        </div>
+
+        <input type="hidden" name="created_by" [value]="issue.created_by">
+
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea id="description" name="description" [(ngModel)]="issue.description" class="form-control"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="assign">Assigned:</label>
+          <select id="assign" name="assign" [(ngModel)]="issue.assign" required class="form-control">
+            <option value="Not Assigned">Not Assigned</option>
+            <option *ngFor="let user of usuaris" [value]="user.full_name">{{ user.full_name }}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="watcher_ids">Watched:</label>
+          <select id="watcher_ids" name="watcher_ids" [(ngModel)]="issue.watcher_ids" multiple class="form-control">
+            <option value="Not watched">Not watched</option>
+            <option *ngFor="let user of usuaris" [value]="user.id">{{ user.full_name }}</option>
+          </select>
+        </div>
       </div>
 
-      <input type="hidden" name="created_by" [value]="issue.created_by">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="issue_type">Issue Type:</label>
+          <select id="issue_type" name="issue_type" [(ngModel)]="issue.issue_type" class="form-control">
+            <option value="Bug">Bug</option>
+            <option value="Question">Question</option>
+            <option value="Enhancement">Enhancement</option>
+          </select>
+        </div>
 
+        <div class="form-group">
+          <label for="severity">Severity:</label>
+          <select id="severity" name="severity" [(ngModel)]="issue.severity" class="form-control">
+            <option value="Wishlist">Wishlist</option>
+            <option value="Minor">Minor</option>
+            <option value="Normal">Normal</option>
+            <option value="Important">Important</option>
+            <option value="Critical">Critical</option>
+          </select>
+        </div>
 
-      <div>
-        <label for="description">Description:</label>
-        <textarea id="description" name="description" [(ngModel)]="issue.description" ></textarea>
-      </div>
+        <div class="form-group">
+          <label for="priority">Priority:</label>
+          <select id="priority" name="priority" [(ngModel)]="issue.priority" class="form-control">
+            <option value="Low">Low</option>
+            <option value="Normal">Normal</option>
+            <option value="High">High</option>
+          </select>
+        </div>
 
-      <div>
-        <label for="assign">Assigned:</label>
-        <select id="assign" name="assign" [(ngModel)]="issue.assign" required>
-          <option value="Not Assigned">Not Assigned</option>
-          <option *ngFor="let user of usuaris" [value]="user.full_name">{{ user.full_name }}</option>
-        </select>
-      </div>
-
-      <div>
-        <label for="watcher_ids">Watched:</label>
-        <select id="watcher_ids" name="watcher_ids" [(ngModel)]="issue.watcher_ids" multiple>
-          <option value="Not watched">Not watched</option>
-          <option *ngFor="let user of usuaris" [value]="user.id">{{ user.full_name }}</option>
-        </select>
-      </div>
-
-      <button class = "crear-issue" type="submit" [disabled]="!issueForm.valid">Create Issue</button>
-      <a routerLink="/issues" class="volver">Back</a>
-    </div>
-
-    <div class="separador"></div>
-
-    <div class="columna-derecha">
-      <div>
-        <label for="issue_type">Issue Type:</label>
-        <select id="issue_type" name="issue_type" [(ngModel)]="issue.issue_type">
-          <option value="Bug">Bug</option>
-          <option value="Question">Question</option>
-          <option value="Enhancement">Enhancement</option>
-        </select>
-      </div>
-
-      <div>
-        <label for="severity">Severity:</label>
-        <select id="severity" name="severity" [(ngModel)]="issue.severity">
-          <option value="Wishlist">Wishlist</option>
-          <option value="Minor">Minor</option>
-          <option value="Normal">Normal</option>
-          <option value="Important">Important</option>
-          <option value="Critical">Critical</option>
-        </select>
-      </div>
-
-      <div>
-        <label for="priority">Priority:</label>
-        <select id="priority" name="priority" [(ngModel)]="issue.priority">
-          <option value="Low">Low</option>
-          <option value="Normal">Normal</option>
-          <option value="High">High</option>
-        </select>
-      </div>
-
-      <div>
-        <label for="status">Status:</label>
-        <select id="status" name="status" [(ngModel)]="issue.status">
-          <option value="New">New</option>
-          <option value="In Progress">In Progress</option>
-          <option value="Ready For Test">Ready For Test</option>
-          <option value="Postponed">Postponed</option>
-          <option value="Closed">Closed</option>
-          <option value="Information Needed">Information Needed</option>
-          <option value="Rejected">Rejected</option>
-        </select>
+        <div class="form-group">
+          <label for="status">Status:</label>
+          <select id="status" name="status" [(ngModel)]="issue.status" class="form-control">
+            <option value="New">New</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Ready For Test">Ready For Test</option>
+            <option value="Postponed">Postponed</option>
+            <option value="Closed">Closed</option>
+            <option value="Information Needed">Information Needed</option>
+            <option value="Rejected">Rejected</option>
+          </select>
+        </div>
       </div>
     </div>
 
-    <div style="clear: both;"></div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group text-center">
+          <button class="btn btn-primary spaced-right" type="submit" [disabled]="!issueForm.valid">Create Issue</button>
+          <a routerLink="/issues" class="btn btn-secondary">Back</a>
+        </div>
+      </div>
+    </div>
   </div>
 </form>
-
