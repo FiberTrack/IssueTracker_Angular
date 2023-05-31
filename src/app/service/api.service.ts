@@ -274,6 +274,15 @@ export class ApiService {
     localStorage.setItem('authorizationToken', token);
   }
 
+  public deleteIssueById(issueId: number): Observable<any> {
+    const apiUrl = this.urlApi + 'issues/' + issueId;
+    const headers = new HttpHeaders()
+      .set('Accept', 'application/json')
+      .set('Authorization', this.authorizationToken);;
+    return this.http.delete<any>(apiUrl, { headers });
+  }
+
+
 
 }
 

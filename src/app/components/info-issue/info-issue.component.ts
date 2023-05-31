@@ -74,6 +74,7 @@ export class InfoIssueComponent {
     }
   }
 
+  
   getComments(): void {
     const issueId = this.route.snapshot.paramMap.get('id');
     if (issueId) {
@@ -209,6 +210,19 @@ export class InfoIssueComponent {
   }
 
   deleteIssue(): void {
+    const issueId = this.route.snapshot.paramMap.get('id');
+    if (issueId) {
+      this.apiService.deleteIssueById(parseInt(issueId)).subscribe(
+        issue => {
+          this.data = issue;
+          console.log(this.data);
+          this.goBack()
+        },
+        error => {
+          console.log('Error al eliminar la issue:', error);
+        }
+      );
+    }
   }
 
   toggleBlocked(): void {
