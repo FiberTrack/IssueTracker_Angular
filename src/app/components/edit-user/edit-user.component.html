@@ -7,6 +7,9 @@
 
 <div class="formulario-center">
   <form (ngSubmit)="updateProfile(userForm)" #userForm="ngForm" enctype="multipart/form-data">
+    <label for="full_name">Update username</label>
+    <input type="text" id="full_name" [(ngModel)]="full_name" name="full_name">
+    
     <label for="bio">Update bio</label>
     <input type="text" id="bio" [(ngModel)]="bio" name="bio">
 
