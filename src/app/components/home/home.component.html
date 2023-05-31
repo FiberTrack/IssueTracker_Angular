@@ -178,6 +178,7 @@
               </div>
               <div class="col-12 col-sm-0 col-md-1 col-lg-1 col-xl-2" >
                 <span class="lock-icon" *ngIf="item.blocked === true">🔒</span>
+                <span class="deadline-icon" *ngIf="item.deadline != null">⌚</span>
               </div>
               <div class="col-6 col-sm-3 col-md-1 col-lg-1 col-xl-1">
                 <p>{{ item.status }}</p>
