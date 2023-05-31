@@ -242,9 +242,29 @@ export class InfoIssueComponent {
   }
 
   addDeadline(): void {
+    console.log("Fecha deadline " + this.deadlineDate);
+    this.apiService.addDeleteDeadline(this.data.id, this.deadlineDate).subscribe(
+      () => {
+         console.log("Fecha deadline: " + this.deadlineDate + " añadida");
+         this.data.deadline = this.deadlineDate
+      },
+      (error: any) => {
+        console.error(error);
+      }
+    );
   }
 
   deleteDeadline(): void {
+    console.log("Eliminando deadline ");
+    this.apiService.addDeleteDeadline(this.data.id, "").subscribe(
+      () => {
+        console.log("Fecha deadline eliminada correctamente ");
+        this.data.deadline = ""
+      },
+      (error: any) => {
+        console.error(error);
+      }
+    );
   }
 
   addComment(){
