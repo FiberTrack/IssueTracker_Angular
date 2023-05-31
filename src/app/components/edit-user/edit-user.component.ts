@@ -16,6 +16,7 @@ export class EditUserComponent {
 
 //DATA
   bio: string = "";
+  full_name: string = "";
   avatar_url: File | undefined;
 
   constructor(private apiService: ApiService, private route: ActivatedRoute, private location: Location) { }
@@ -33,8 +34,14 @@ export class EditUserComponent {
     const formData = new FormData();
     
     console.log("User Data: " + userForm)
+    console.log("nom nou: " + this.full_name)
     console.log("bio_nova: " + this.bio)
     console.log("avatar_url: " + this.avatar_url)
+
+    if (userForm.value.full_name != "") {
+      console.log("Actualitzant full_name")
+      formData.append('full_name', userForm.value.full_name);
+    }
 
     if (userForm.value.bio != "") {
       console.log("Actualitzant bio")
