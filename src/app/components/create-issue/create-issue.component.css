@@ -11,6 +11,10 @@
     margin-right: 20px; /* Agrega un margen derecho para separar las dos columnas */
   }
 
+  .spaced-right{
+    margin-right: 10px; /* Ajusta el valor según la separación deseada */
+  }
+
   h2 {
     text-align: center;
     padding: 10px;

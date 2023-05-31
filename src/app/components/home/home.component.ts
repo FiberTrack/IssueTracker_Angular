@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
   filtroBusqueda: boolean = false;
   filtroFiltros: boolean = false;
   usuaris: Person[] = [];
-  usuari_actual = 0;
+  usuari_actual: number;
   selectedOptions: any = {
     severities: [],
     types: [],
@@ -46,7 +46,9 @@ export class HomeComponent implements OnInit {
   };
   imageSize: Number = 150;
 
-  constructor(private apiService: ApiService, private location: Location) { }
+  constructor(private apiService: ApiService, private location: Location) {
+    this.usuari_actual = 0
+   }
 
 
   ngOnInit(): void {
@@ -60,6 +62,11 @@ export class HomeComponent implements OnInit {
     this.filtroBusqueda = false;
     this.filtroFiltros = false;
     this.getUsuaris();
+
+    const storedUser = localStorage.getItem('actual_user');
+  if (storedUser) {
+    this.usuari_actual = parseInt(storedUser);
+  }
     
   }
 
@@ -209,6 +216,7 @@ export class HomeComponent implements OnInit {
     var authorizationToken = this.usuaris[this.usuari_actual].api_key;
     console.log(authorizationToken);
     this.apiService.setAuthorizationToken(authorizationToken);
+    this.setActualUser()
   }
 
   applyFilters() {
@@ -244,6 +252,10 @@ export class HomeComponent implements OnInit {
       // El valor ya está en el array, lo eliminamos
       this.selectedOptions[tipo2].splice(index, 1);
     }
+  }
+ 
+  public setActualUser(): void {
+    localStorage.setItem('actual_user', String(this.usuari_actual));
   }
 
 }
